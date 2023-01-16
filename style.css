@@ -1,0 +1,139 @@
+* {
+    margin: 0;
+    padding: 0;
+  }
+ 
+ html {
+    background-color: #AA96DA;
+ } 
+
+ .grid{
+    margin: 0 50px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 60px;
+    row-gap: 30px;
+}
+
+.grid-info{
+    height: 300px;
+    position: relative;
+}
+
+.image{
+    height: 88%;
+    width: 100%;
+    border-radius: 25px;   
+}
+
+.buttons{
+    background-color: #FFFFD2;
+    color: #AA96DA;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    font-weight: 700;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.navtop-list {
+    overflow: hidden;
+    background-color: #AA96DA;
+    padding-right: 50px;
+  }
+  
+  .navtop-list a {
+    float: right;
+    color: #FFFFD2 ;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    cursor: pointer;
+    margin-left: 5px;
+    
+  }
+  
+  .navtop-list a:hover {
+    background-color: #FFFFD2;
+    color: #AA96DA;
+  }
+
+  .forms {
+    width: 100%;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    text-align: center;
+  }
+
+  .search-bar {
+    margin-left: 50px;
+    float: left;
+  }
+
+  .transport-type {
+    display: inline-block;
+    margin: auto;
+  }
+
+  .date-picker {
+    margin-right: 50px;
+    float: right;
+  }
+
+  .topnav .search-container {
+    float: right;
+  }
+  
+  .forms input[type=text] {
+    padding: 6px;
+    margin-top: auto;
+    font-size: 17px;
+    border: none;
+  }
+  
+  .forms .search-bar button {
+    float: right;
+    padding: 6px 10px;
+    margin-top: auto;
+    background: #ddd;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  #transport {
+    width: 150px;
+    padding: 6px;
+    font-size: 16px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+  
+  #transport::-ms-expand {
+    display: none;
+  }
+  
+  #transport option {
+    font-size: 16px;
+    padding: 12px;
+    background-color: #AA96DA;
+    color: #FFFFD2;
+  }
+
+  #pickDate {
+    width: 150px;
+    padding: 6px;
+    font-size: 16px;
+  } 
+
+  .background-img {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+
+  #pozadina {
+    border-radius: 30px;
+  }
