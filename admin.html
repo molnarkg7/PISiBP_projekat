@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Контролна табла</title>
+</head>
+<body>
+    <div class="admin">
+        <h1 class="admin-naslov">Контролна табла</h1>
+        <table>
+          <tr>
+            <th>ИД</th>
+            <th>Име</th>
+            <th>Презиме</th>
+            <th>Акција</th>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>Драган</td>
+            <td>Милорадовић</td>
+            <td>
+              <button class="edit-btn">Измени</button>
+              <button class="delete-btn">Обриши</button>
+            </td>
+          </tr>
+        </table>
+        <form>
+          <label class="name" for="name">Име:</label>
+          <input type="text" id="name" name="name">
+          <label class="surname" for="surname">Презиме:</label>
+          <input type="text" id="surname" name="surname">
+          <button type="submit" class="add-btn">Додај</button>
+        </form>
+      </div>
+</body>
+</html>

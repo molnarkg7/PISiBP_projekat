@@ -58,7 +58,7 @@
     background-color: #AA96DA;
     padding-right: 50px;
   }
-  
+
   .navtop-list a {
     float: right;
     color: #FFFFD2 ;
@@ -68,7 +68,6 @@
     font-size: 20px;
     cursor: pointer;
     margin-left: 5px;
-    
   }
   
   .navtop-list a:hover {
@@ -169,7 +168,7 @@
     border-radius: 10px;
   }
 
-  p {
+   .email, .adress, .phone {
     margin: 30px;
     font-size: 20px;
   }
@@ -196,6 +195,11 @@
     margin-top: 50px;
     font-size: 30px;
     font-weight: bold;
+  }
+
+  .opis-posla {
+    margin: 40px;
+    font-size: 20px;
   }
 
   .job-intro {
@@ -227,36 +231,132 @@
       background-color: #FFFFD2;
     }
 
-    .program-container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      column-gap: 50px;
-      row-gap: 50px;
-    }
+  .aranzman-main {
+    display: flex;
+    justify-content: space-between;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    margin-top: 3%;
+  }
 
-    .program-name {
-      font-weight: bold;
-      font-size: 32px;
-      text-align: center;
-    }
+  .naslov-aranzmana {
+    font-weight: bold;
+    font-size: 32px;
+  }
 
-    .program-location {
-      font-weight: bold;
-      font-size: 24px;
-      text-align: center;
-    }
+  .lokacija-aranzmana {
+    font-weight: bold;
+    font-size: 24px;
+  }
 
-    .prevoz {
-      margin: 15% 0 0 0;
-      text-align: center;
-    }
+  .ime-slika-aranzmana {
+    text-align: center;
+    padding: 30px;
+    height: 500px;
+    width: 50%;
+    background-color: #FFFFD2;
+    border-radius: 10px;
+  }
 
-    .smestaj {
-      margin: 15% 0 0 0;
-      text-align: center;
-    }
+  .cena-aranzmana {
+    height: 100px;
+    width: 50%;
+    padding: 30px;
+    text-align: center;
+    font-size: 20px;
+    background-color: #FFFFD2;
+    border-radius: 10px;
+  }
 
-    .cena {
-      margin: 15% 0 0 0;
-      text-align: center;
-    }
+  .slika-smestaj {
+    height: 450px;
+    width: 100%;
+  }
+
+  .btn-rezervisi {
+    margin: 5% 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  .button-rezervacija {
+    background-color: #FFFFD2; 
+    color: #AA96DA; 
+    border: none; 
+    padding: 10px 25px; 
+    text-align: center; 
+    text-decoration: none; 
+    display: inline-block; 
+    font-size: 32px; 
+    margin-top: 5px;
+    cursor: pointer; 
+    border-radius: 10px; 
+  }
+
+  .opis-aranzmana, .opis-smestaj, .napomena {
+    text-align: center;
+    height: 100px;
+    width: 80%;
+    margin-top: 5%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #FFFFD2;
+    border-radius: 10px;
+  }
+
+  .admin {
+    max-width: 80%;
+    margin: 5% auto;
+  }
+
+  input[type=text]{
+    width: 20%;
+    padding: 12px 20px;
+    margin-top: 5%;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-sizing: border-box;
+  }
+
+  .name, .surname {
+    font-size: 18px;
+  }
+
+  .admin-naslov {
+    text-align: center;
+    font-weight: bold;
+    font-size: 32px;
+  }
+  
+  table {
+    margin-top: 5%;
+    font-size: 18px;
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    border: 1px solid #FFFFD2;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  th {
+    background-color: #FFFFD2;
+  }
+  
+  .edit-btn, .delete-btn, .add-btn {
+    background-color: #FFFFD2; 
+    color: #AA96DA; 
+    border: none; 
+    padding: 10px 25px; 
+    text-align: center; 
+    text-decoration: none; 
+    display: inline-block; 
+    font-size: 18px; 
+    margin-top: 5px;
+    cursor: pointer; 
+    border-radius: 10px; 
+  }

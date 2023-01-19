@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="login.css">
+    <title>Резервација</title>
+</head>
+<body>
+    <header class="header">
+        <div class="navtop" >
+            <div class="logo">
+                <a href=""></a>
+            </div>
+
+            <div class="navtop-list">
+                <a href="login.html">Пријави се</a>
+                <a href="job.html">Посао</a>
+                <a href="contact.html">Контакт</a>
+                <a href="about.html">О нама</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+
+        <div class="center">
+            <div class="login-page">
+                <div class="form">
+                <h1>Резервација</h1>
+                  <form class="login-form" method="post" action="/registration.php">
+    
+                  <input type="text" id="ime" name="ime" placeholder="Име" required>
+                  <input type="text" id="prezime" name="prezime" placeholder="Презиме" required>
+                  <input type="text" id="mobilni" name="mobilni" placeholder="Ваш број телефона" required>
+                  <input type="email" id="email" name="email" placeholder="Ваша мејл адреса" required>
+                  <input type="text" id="putnici" name="putnici" placeholder="Број путника" required>
+                  <input type="text" id="mobilni" name="mobilni" placeholder="Контакт телефон" required>
+                  <fieldset>
+                    <legend>Изабери начин плаћања:</legend>
+                
+                    <div>
+                      <input type="checkbox" id="kes" name="kes">
+                      <label for="kes">Кеш</label>
+                    </div>
+                
+                    <div>
+                      <input type="checkbox" id="kartica" name="kartica">
+                      <label for="kartica">Картица</label>
+                    </div>
+                </fieldset> </br>
+                <textarea id="komentar" placeholder="Коментар"></textarea>
+                    
+                    <button name="unoskorisnika">Резервиши</button>
+     
+                  </form>
+                </div>
+            </div> 
+            </div>
+
+    </main>
+
+</body>
+</html>
