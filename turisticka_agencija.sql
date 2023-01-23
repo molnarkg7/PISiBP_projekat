@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 06, 2022 at 02:01 PM
--- Server version: 5.7.31
--- PHP Version: 7.3.21
+-- Generation Time: Jan 23, 2023 at 01:24 PM
+-- Server version: 10.4.10-MariaDB
+-- PHP Version: 7.3.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -45,6 +46,20 @@ CREATE TABLE IF NOT EXISTS `aranzman` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `drzava`
+--
+
+DROP TABLE IF EXISTS `drzava`;
+CREATE TABLE IF NOT EXISTS `drzava` (
+  `id_drzava` int(11) NOT NULL AUTO_INCREMENT,
+  `id_kontinenta` int(11) NOT NULL,
+  `naziv` varchar(255) COLLATE utf8mb4_bin NOT NULL,
+  PRIMARY KEY (`id_drzava`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `fakultativne_aktivnosti`
 --
 
@@ -59,20 +74,42 @@ CREATE TABLE IF NOT EXISTS `fakultativne_aktivnosti` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `kontinent`
+--
+
+DROP TABLE IF EXISTS `kontinent`;
+CREATE TABLE IF NOT EXISTS `kontinent` (
+  `id_kontinenta` int(11) NOT NULL AUTO_INCREMENT,
+  `naziv` varchar(255) COLLATE utf8mb4_bin NOT NULL,
+  PRIMARY KEY (`id_kontinenta`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `korisnik`
 --
 
 DROP TABLE IF EXISTS `korisnik`;
 CREATE TABLE IF NOT EXISTS `korisnik` (
   `id_korisnika` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) COLLATE utf8mb4_bin NOT NULL,
+  `sifra` varchar(255) COLLATE utf8mb4_bin NOT NULL,
   `ime` varchar(255) COLLATE utf8mb4_bin NOT NULL,
   `prezime` varchar(255) COLLATE utf8mb4_bin NOT NULL,
-  `kontakt_telefon` int(20) NOT NULL,
+  `kontakt_telefon` varchar(255) COLLATE utf8mb4_bin NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
   `id_tipa` int(11) NOT NULL,
   PRIMARY KEY (`id_korisnika`),
   KEY `id_tipa` (`id_tipa`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Dumping data for table `korisnik`
+--
+
+INSERT INTO `korisnik` (`id_korisnika`, `username`, `sifra`, `ime`, `prezime`, `kontakt_telefon`, `email`, `id_tipa`) VALUES
+(2, 'uros', '123', 'Урош', 'Милошевић', '0614111002', 'milosevicurose14@gmail.com', 1);
 
 -- --------------------------------------------------------
 
@@ -83,10 +120,8 @@ CREATE TABLE IF NOT EXISTS `korisnik` (
 DROP TABLE IF EXISTS `lokacija`;
 CREATE TABLE IF NOT EXISTS `lokacija` (
   `id_lokacije` int(11) NOT NULL AUTO_INCREMENT,
+  `id_drzava` int(11) NOT NULL,
   `mesto` varchar(255) COLLATE utf8mb4_bin NOT NULL,
-  `region` varchar(255) COLLATE utf8mb4_bin NOT NULL,
-  `drzava` varchar(255) COLLATE utf8mb4_bin NOT NULL,
-  `kontinent` varchar(255) COLLATE utf8mb4_bin NOT NULL,
   `slika` varchar(255) COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`id_lokacije`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
@@ -99,7 +134,7 @@ CREATE TABLE IF NOT EXISTS `lokacija` (
 
 DROP TABLE IF EXISTS `prevozi`;
 CREATE TABLE IF NOT EXISTS `prevozi` (
-  `id_prevoza` varchar(255) COLLATE utf8mb4_bin NOT NULL,
+  `id_prevoza` int(255) NOT NULL,
   `id_aranzmana` int(11) NOT NULL,
   KEY `id_prevoza` (`id_prevoza`),
   KEY `id_aranzmana` (`id_aranzmana`)
@@ -177,14 +212,14 @@ DROP TABLE IF EXISTS `smestaj`;
 CREATE TABLE IF NOT EXISTS `smestaj` (
   `id_smestaja` int(11) NOT NULL AUTO_INCREMENT,
   `tip_smestaja` varchar(255) COLLATE utf8mb4_bin NOT NULL,
-  `naziv_objekta` varchar(255) COLLATE utf8mb4_bin NOT NULL,
-  `br_kreveta` int(11) NOT NULL,
-  `kategorija_smestaja` varchar(255) COLLATE utf8mb4_bin NOT NULL,
-  `internet_konekcija` tinyint(1) NOT NULL,
-  `tv` tinyint(1) NOT NULL,
-  `klima` tinyint(1) NOT NULL,
-  `frizider` tinyint(1) NOT NULL,
-  `sef` tinyint(1) NOT NULL,
+  `naziv_objekta` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `br_kreveta` int(11) DEFAULT NULL,
+  `kategorija_smestaja` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `internet_konekcija` tinyint(1) DEFAULT NULL,
+  `tv` tinyint(1) DEFAULT NULL,
+  `klima` tinyint(1) DEFAULT NULL,
+  `frizider` tinyint(1) DEFAULT NULL,
+  `sef` tinyint(1) DEFAULT NULL,
   `slika1` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
   `slika2` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
   `slika3` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
@@ -192,7 +227,15 @@ CREATE TABLE IF NOT EXISTS `smestaj` (
   `slika5` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
   `slika` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
   PRIMARY KEY (`id_smestaja`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Dumping data for table `smestaj`
+--
+
+INSERT INTO `smestaj` (`id_smestaja`, `tip_smestaja`, `naziv_objekta`, `br_kreveta`, `kategorija_smestaja`, `internet_konekcija`, `tv`, `klima`, `frizider`, `sef`, `slika1`, `slika2`, `slika3`, `slika4`, `slika5`, `slika`) VALUES
+(1, 'Хотел', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(2, 'Бунгалов', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -205,7 +248,15 @@ CREATE TABLE IF NOT EXISTS `tip_korisnika` (
   `id_tipa` int(11) NOT NULL AUTO_INCREMENT,
   `naziv_tipa` varchar(255) COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`id_tipa`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Dumping data for table `tip_korisnika`
+--
+
+INSERT INTO `tip_korisnika` (`id_tipa`, `naziv_tipa`) VALUES
+(1, 'Корисник'),
+(2, 'Администратор');
 
 -- --------------------------------------------------------
 
@@ -215,11 +266,22 @@ CREATE TABLE IF NOT EXISTS `tip_korisnika` (
 
 DROP TABLE IF EXISTS `tip_prevoza`;
 CREATE TABLE IF NOT EXISTS `tip_prevoza` (
-  `vin` varchar(255) COLLATE utf8mb4_bin NOT NULL,
-  `br_sedista` int(11) NOT NULL,
+  `id` int(255) NOT NULL AUTO_INCREMENT,
+  `br_sedista` int(11) DEFAULT NULL,
   `naziv` varchar(255) COLLATE utf8mb4_bin NOT NULL,
-  PRIMARY KEY (`vin`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Dumping data for table `tip_prevoza`
+--
+
+INSERT INTO `tip_prevoza` (`id`, `br_sedista`, `naziv`) VALUES
+(6, 50, 'Аутобус'),
+(7, 300, 'Авион'),
+(8, 500, 'Крстарење'),
+(9, 150, 'Воз'),
+(10, NULL, 'Самостални превоз');
 
 --
 -- Constraints for dumped tables
@@ -242,8 +304,8 @@ ALTER TABLE `korisnik`
 -- Constraints for table `prevozi`
 --
 ALTER TABLE `prevozi`
-  ADD CONSTRAINT `prevozi_ibfk_1` FOREIGN KEY (`id_prevoza`) REFERENCES `tip_prevoza` (`vin`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `prevozi_ibfk_2` FOREIGN KEY (`id_aranzmana`) REFERENCES `aranzman` (`id_aranzmana`);
+  ADD CONSTRAINT `prevozi_ibfk_2` FOREIGN KEY (`id_aranzmana`) REFERENCES `aranzman` (`id_aranzmana`),
+  ADD CONSTRAINT `prevozi_ibfk_3` FOREIGN KEY (`id_prevoza`) REFERENCES `tip_prevoza` (`id`);
 
 --
 -- Constraints for table `rezervacija`
