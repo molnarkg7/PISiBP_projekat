@@ -36,7 +36,6 @@
     grid-template-columns: 1fr 1fr 1fr;
     column-gap: 60px;
     row-gap: 30px;
-    position: relative;
     margin-top: 40px;
 }
 .mala_lista{
@@ -49,7 +48,7 @@
 
 .kartice{
     height: 600px;
-    position: relative;
+    
     background-color: #FFFFD2;
     border-radius: 10px;
 }
