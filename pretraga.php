@@ -43,11 +43,10 @@
             </div>
 
             <div class="navtop-list">
-                <a href="login.php">Пријави се</a>
+                <a href="login.html">Пријави се</a>
                 <a href="job.html">Посао</a>
                 <a href="contact.html">Контакт</a>
                 <a href="about.html">О нама</a>
-                <a href="index.php">Почетна страна</a>
             </div>
         </div>
     </header>
@@ -76,22 +75,23 @@
     <?php
     
     
-     $query ="SELECT month(aranzman.termin_polazak) as mesec, year(aranzman.termin_polazak) as godina, smestaj.naziv_objekta as naziv,lokacija.mesto as lokacija,aranzman.termin_povratak - aranzman.termin_polazak as dana, aranzman.termin_polazak as polazak,aranzman.cena as cena,tip_prevoza.naziv as prevoz,smestaj.id_smestaja as idsmest, lokacija.slika
-     FROM smestaj,lokacija,aranzman,tip_prevoza,drzava
-     WHERE drzava.id_kontinenta = '$id' AND lokacija.id_drzava = drzava.id_drzava AND aranzman.id_lokacije = lokacija.id_lokacije AND tip_prevoza.id = aranzman.id_prevoza AND smestaj.id_smestaja = aranzman.id_smestaja
-     ORDER BY aranzman.termin_polazak desc
-     LIMIT 30";
+     $query ="SELECT  month(ponuda.termin_polazak) as mesec, year(ponuda.termin_polazak) as godina, smestaj.naziv_objekta as naziv,lokacija.mesto as lokacija, DATEDIFF(ponuda.termin_povratak, ponuda.termin_polazak) as dana, ponuda.termin_polazak as polazak,ponuda.cena_putovanja+ponuda.cena_prevoza as cena,tip_prevoza.naziv as prevoz,smestaj.id_smestaja as idsmest, lokacija.slika
+     FROM (ponuda JOIN tip_prevoza ON ponuda.id_prevoza=tip_prevoza.id) 
+     INNER JOIN (SELECT provodi.id_ponude, MAX(br_dana), provodi.id_smestaja, provodi.id_lokacije FROM provodi GROUP BY provodi.id_ponude) provodi ON ponuda.id_ponude = provodi.id_ponude JOIN smestaj ON smestaj.id_smestaja=provodi.id_smestaja JOIN lokacija ON lokacija.id_lokacije=provodi.id_lokacije JOIN drzava ON drzava.id_drzava=lokacija.id_drzava
+     WHERE drzava.id_kontinenta=".$id."
+     ORDER BY ponuda.termin_polazak desc
+     LIMIT 50";
 
     if(isset($_GET['broj'])){
         if(isset($_GET['brojStranice'])){
-            $query = str_replace("LIMIT 30", "LIMIT ".intval($_GET['broj'])*(intval($_GET['brojStranice'])-1).",".intval($_GET['broj']), $query);
+            $query = str_replace("LIMIT 50", "LIMIT ".intval($_GET['broj'])*(intval($_GET['brojStranice'])-1).",".intval($_GET['broj']), $query);
         }else{
-            $query = str_replace("LIMIT 30", "LIMIT ".$_GET['broj'], $query);
+            $query = str_replace("LIMIT 50", "LIMIT ".$_GET['broj'], $query);
         }
         
     }else{
         if(isset($_GET['brojStranice'])){
-            $query = str_replace("LIMIT 30", "LIMIT ".intval(30)*(intval($_GET['brojStranice'])-1).",".intval(30), $query);
+            $query = str_replace("LIMIT 50", "LIMIT ".intval(30)*(intval($_GET['brojStranice'])-1).",".intval(30), $query);
         }
     }
      $con->query("SET NAMES 'utf8'");
@@ -147,7 +147,7 @@
                 </div>
 
                 <div class="male_kartice">
-                    <p class="paragraf">Cena:<?php echo $row['cena']?></p>
+                    <p class="paragraf">Cena:<?php echo intVal($row['cena'])?> € </p>
                 </div> 
                 
             </div><a href="program.php?id=<?php echo $row['idsmest']?>"><div class="pozicija-dugme"><button class="dugme">Види понуду -></button></div></a>
