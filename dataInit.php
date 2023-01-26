@@ -37,7 +37,7 @@ function smestaj() {
     $conn = OpenCon();
     $conn->query("SET NAMES 'utf8'");
     $slike = file('gradovi.txt');
-    for($i=1; $i<90; $i++){
+    for($i=1; $i<91; $i++){
         $conn->query("UPDATE lokacija
         SET slika = '".$slike[rand(0, 29)]."'
         WHERE id_lokacije = ".$i.";");
@@ -51,16 +51,19 @@ function smestaj() {
 function ponuda(){
     $conn = OpenCon();
     $conn->query("SET NAMES 'utf8'");
-    for($i=1; $i<5; $i++){
+    for($i=1; $i<60001; $i++){
         $query="SELECT CURRENT_DATE + INTERVAL FLOOR(RAND() * 20) DAY AS pocetni";
         if ($result = mysqli_query($conn, $query)) {
             $row = mysqli_fetch_array($result);
             $pocetak=$row["pocetni"];
         }
-        $conn->query("INSERT INTO ponuda (id_ponude, termin_polazak, termin_povratak, cena_putovanja, cena_prevoza, id_lokacije_polaska, id_prevoza) VALUES (".$i.", '".$pocetak."', '".$pocetak."' + INTERVAL FLOOR(1 + RAND()*(15 - 1 + 1)) DAY, ROUND(100 + RAND()*(3000 - 100 + 1), 2), FLOOR(100 + RAND()*(3000 - 100 + 1)), FLOOR(46 + RAND()*(48 - 46 + 1)), FLOOR(1 + RAND()*(5 - 1 + 1)));");
+        $conn->query("INSERT INTO ponuda (id_ponude, termin_polazak, termin_povratak, cena_putovanja, cena_prevoza, id_lokacije_polaska, id_prevoza) VALUES (".$i.", '".$pocetak."', '".$pocetak."' + INTERVAL FLOOR(1 + RAND()*(7 - 1 + 1)) DAY, ROUND(100 + RAND()*(3000 - 100 + 1), 2), FLOOR(100 + RAND()*(3000 - 100 + 1)), FLOOR(46 + RAND()*(48 - 46 + 1)), FLOOR(1 + RAND()*(5 - 1 + 1)));");
+        if($conn->error){
+            echo "Ponuda ".$conn->error. "<br>";
+        }
     }
     echo "Ponuda ".$conn->error;
-    $conn->query("UPDATE ponuda SET ponuda.termin_polazak = ponuda.termin_polazak - INTERVAL (100) DAY WHERE ponuda.id_ponude>24378 AND ponuda.id_ponude<34378;");
+    $conn->query("UPDATE ponuda SET ponuda.termin_polazak = ponuda.termin_polazak - INTERVAL (100) DAY, ponuda.termin_povratak= ponuda.termin_povratak - INTERVAL (100)  WHERE ponuda.id_ponude>24378 AND ponuda.id_ponude<34378;");
     CloseCon($conn);
     provodi();
 }
@@ -81,14 +84,14 @@ function ponuda(){
 function provodi(){
     $conn = OpenCon();
     $conn->query("SET NAMES 'utf8'");
-    for($i=1; $i<5; $i++){
-        $query="SELECT ponuda.termin_povratak-ponuda.termin_polazak as br_dana from ponuda where id_ponude=".$i."";
+    for($i=1; $i<60001; $i++){
+        $query="SELECT DATEDIFF(ponuda.termin_povratak, ponuda.termin_polazak) as br_dana from ponuda where id_ponude=".$i."";
         if ($result = mysqli_query($conn, $query)) {
             $row = mysqli_fetch_array($result);
             $razlika=$row["br_dana"];
         }
-        if($razlika>5){
-            $komadi=4;
+        if($razlika>3){
+            $komadi=3;
         }else{
             $komadi=rand(1, $razlika);
         }       
@@ -108,8 +111,8 @@ function dani(){
     $conn = OpenCon();
     $conn->query("SET NAMES 'utf8'");
 
-    for($i=1; $i<5; $i++){
-        $query="SELECT ponuda.termin_povratak-ponuda.termin_polazak as br_dana, id_lokacije_polaska from ponuda where id_ponude=".$i."";
+    for($i=1; $i<60001; $i++){
+        $query="SELECT DATEDIFF(ponuda.termin_povratak, ponuda.termin_polazak) as br_dana, id_lokacije_polaska from ponuda where id_ponude=".$i."";
         if ($result = mysqli_query($conn, $query)) {
             $row = mysqli_fetch_array($result);
             $razlika=$row["br_dana"];
@@ -117,7 +120,7 @@ function dani(){
         }
         ini_set('max_execution_time', '500');
         set_time_limit(500);
-        for($j=1; $j<1+1; $j++){
+        for($j=1; $j<$razlika+1; $j++){
             if($j==1){
                 $opis="Полазак са перона у ".rand(0,23).":".rand(0,59)." lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolo";
             }elseif($j==$razlika && $j==1){
@@ -152,47 +155,5 @@ echo "The time is " . date("h:i:sa");
 baza();
 echo "The time is " . date("h:i:sa");
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- /* function aktivnost() {
-    $conn = OpenCon();
-    $conn->query("SET NAMES 'utf8'");
-    for($i=1; $i<51; $i++){
-        for($j=1; $j<rand(1, 10); $j++){
-            $conn->query("INSERT INTO sadrzi_ativnosti (id_programa, id_aktivnosti) VALUES(".$j.", ".rand(1, 10).")");
-        }
-    }
-    echo $conn->error;
-  } 
- 
-  function smesId() {
-    $conn = OpenCon();
-    $conn->query("SET NAMES 'utf8'");
-    for($i=1; $i<91; $i++){
-            $conn->query("UPDATE smestaj SET id_smestaja = ".$i." WHERE id_smestaja = 92+".$i."");
-        
-    }
-    echo $conn->error;
-  }*/
 ?>
 
