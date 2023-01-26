@@ -5,35 +5,109 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="admin.css">
     <title>Контролна табла</title>
 </head>
 <body>
+
+  <header class="header">
+    <div class="navtop" >
+        <div class="logo">
+            <a href=""></a>
+        </div>
+        <div class="navtop-list">
+            <a href="dodaj.html">Додај понуду/аранжман</a>
+            <a href="index.php">Почетна страна</a>
+        </div>
+    </div>
+</header>
+
     <div class="admin">
         <h1 class="admin-naslov">Контролна табла</h1>
         <table>
           <tr>
             <th>ИД</th>
+            <th>Корисничко име</th>
             <th>Име</th>
             <th>Презиме</th>
+            <th>Мејл адреса</th>
+            <th>Лозинка</th>           
+            <th>Контакт телефон</th>
+            <th>Рола</th>
             <th>Акција</th>
           </tr>
           <tr>
             <td>1</td>
+            <td>gagi123</td>
             <td>Драган</td>
             <td>Милорадовић</td>
+            <td>gagi@gmail.com</td>
+            <td>1234</td>
+            <td>0692568541</td>
+            <td>Модератор</td>
             <td>
               <button class="edit-btn">Измени</button>
               <button class="delete-btn">Обриши</button>
             </td>
           </tr>
-        </table>
-        <form>
-          <label class="name" for="name">Име:</label>
-          <input type="text" id="name" name="name">
-          <label class="surname" for="surname">Презиме:</label>
-          <input type="text" id="surname" name="surname">
-          <button type="submit" class="add-btn">Додај</button>
-        </form>
-      </div>
+        </table>  
+
+
+        <div class="center">
+          <div class="login-page">
+              <div class="form">
+              <h1>Додавање корисника</h1>
+                <form class="login-form">
+  
+                <input type="text" id="Username" name="Username" placeholder="Корисничко име" required>
+                <input type="text" id="Ime" name="Ime" placeholder="Име" required>
+                <input type="text" id="Prezime" name="Prezime" placeholder="Презиме" required>
+                <input type="email" id="email" name="email" placeholder="Мејл адреса" required>
+                <input type="password" id="Sifra" name="Sifra" placeholder="Лозинка" required>
+                <input type="text" id="mobilni" name="mobilni" placeholder="Контакт телефон" required>
+                  
+                  <button name="unoskorisnika">Додај</button>
+  
+                </form>
+              </div>
+          </div> 
+          </div>
+        
+        <div class="potvrda">
+          <h1 class="potvrda-naslov">Потврда резервација</h1>
+          <table>
+            <tr>
+              <th>Име</th>
+              <th>Презиме</th>
+              <th>Број телефона</th>
+              <th>Мејл адреса</th>
+              <th>Број одраслих</th>           
+              <th>Број деце</th>
+              <th>Начин плаћања</th>
+              <th>Коментар</th>
+              <th>Акција</th>
+            </tr>
+            <tr>
+              <td>Драган</td>
+              <td>Милорадовић</td>
+              <td>0692568541</td>
+              <td>gagi@gmail.com</td>
+              <td>2</td>
+              <td>1</td>
+              <td>Кеш</td>
+              <td>Нема</td>
+              <td>
+
+              <!--када кликне на дугме погледај да га врати на понуду коју купац/корисник хоће да резервише-->
+              <a href=""><button class="delete-btn">Погледај</button></a> 
+                <button class="delete-btn">Потврди</button>
+                <button class="delete-btn">Одбиј</button>
+              </td>
+            </tr>
+          </table> 
+        </div>
+
+    </div>
+
 </body>
 </html>
