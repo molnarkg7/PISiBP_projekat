@@ -1,23 +1,11 @@
-DROP DATABASE IF EXISTS `turisticka_agencija`;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
+DROP DATABASE IF EXISTS turisticka_agencija;
 CREATE DATABASE IF NOT EXISTS `turisticka_agencija` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;
 USE `turisticka_agencija`;
 
-DROP TABLE IF EXISTS `aranzman`;
-CREATE TABLE IF NOT EXISTS `aranzman` (
-  `id_aranzmana` int(11) NOT NULL AUTO_INCREMENT,
-  `naziv` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
-  PRIMARY KEY (`id_aranzmana`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 DROP TABLE IF EXISTS `dani`;
 CREATE TABLE IF NOT EXISTS `dani` (
@@ -395,16 +383,6 @@ INSERT INTO `sadrzi_ativnosti` (`id`, `id_programa`, `id_aktivnosti`) VALUES
 (851, 3, 6),
 (852, 4, 7);
 
-DROP TABLE IF EXISTS `sadrzi_ponude`;
-CREATE TABLE IF NOT EXISTS `sadrzi_ponude` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_aranzmana` int(11) NOT NULL,
-  `id_ponude` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_aranzmana` (`id_aranzmana`,`id_ponude`),
-  KEY `id_ponude` (`id_ponude`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-
 DROP TABLE IF EXISTS `smestaj`;
 CREATE TABLE IF NOT EXISTS `smestaj` (
   `id_smestaja` int(11) NOT NULL AUTO_INCREMENT,
@@ -510,15 +488,7 @@ ALTER TABLE `sadrzi_ativnosti`
   ADD CONSTRAINT `sadrzi_ativnosti_ibfk_1` FOREIGN KEY (`id_aktivnosti`) REFERENCES `fakultativne_aktivnosti` (`id_aktivnosti`),
   ADD CONSTRAINT `sadrzi_ativnosti_ibfk_2` FOREIGN KEY (`id_programa`) REFERENCES `program_putovanja` (`id_programa`);
 
-ALTER TABLE `sadrzi_ponude`
-  ADD CONSTRAINT `sadrzi_ponude_ibfk_1` FOREIGN KEY (`id_aranzmana`) REFERENCES `aranzman` (`id_aranzmana`),
-  ADD CONSTRAINT `sadrzi_ponude_ibfk_2` FOREIGN KEY (`id_ponude`) REFERENCES `ponuda` (`id_ponude`);
-
 ALTER TABLE `smestaj`
   ADD CONSTRAINT `smestaj_ibfk_1` FOREIGN KEY (`br_kreveta`) REFERENCES `tip_smestaja` (`id_tipa`),
   ADD CONSTRAINT `smestaj_ibfk_2` FOREIGN KEY (`tip_smestaja`) REFERENCES `tip_nocenja` (`id_tipa`);
 COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
