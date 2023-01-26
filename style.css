@@ -280,7 +280,7 @@
     text-align: center;
   }
 
-  .button-rezervacija {
+  .button-rezervacija, .button-uredi, .button-obrisi {
     background-color: #FFFFD2; 
     color: #AA96DA; 
     border: none; 

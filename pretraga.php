@@ -43,10 +43,11 @@
             </div>
 
             <div class="navtop-list">
-                <a href="login.html">Пријави се</a>
+                <a href="login.php">Пријави се</a>
                 <a href="job.html">Посао</a>
                 <a href="contact.html">Контакт</a>
                 <a href="about.html">О нама</a>
+                <a href="index.php">Почетна страна</a>
             </div>
         </div>
     </header>
