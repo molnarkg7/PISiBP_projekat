@@ -1,11 +1,7 @@
 <?php
- include('db.php');
+include 'baza_podataka.php';
 
- if(isset($_GET['user'])){
-    $id=$_GET['user'];
- }
 
- 
 ?>
 
 <!DOCTYPE html>
@@ -73,15 +69,47 @@
     
     <div class="lista">
     <?php
+    $conn = OpenCon();
     
-    
-     $query ="SELECT  month(ponuda.termin_polazak) as mesec, year(ponuda.termin_polazak) as godina, smestaj.naziv_objekta as naziv,lokacija.mesto as lokacija, DATEDIFF(ponuda.termin_povratak, ponuda.termin_polazak) as dana, ponuda.termin_polazak as polazak,ponuda.cena_putovanja+ponuda.cena_prevoza as cena,tip_prevoza.naziv as prevoz,smestaj.id_smestaja as idsmest, lokacija.slika
+     $query ="SELECT  month(ponuda.termin_polazak) as mesec, year(ponuda.termin_polazak) as godina, smestaj.naziv_objekta as naziv,lokacija.mesto as lokacija, DATEDIFF(ponuda.termin_povratak, ponuda.termin_polazak) as dana, ponuda.termin_polazak as polazak,ponuda.cena_putovanja+ponuda.cena_prevoza as cena,tip_prevoza.naziv as prevoz,smestaj.id_smestaja as idsmest, lokacija.slika, lokacija.id_lokacije as idlok, ponuda.id_ponude as idpon
      FROM (ponuda JOIN tip_prevoza ON ponuda.id_prevoza=tip_prevoza.id) 
-     INNER JOIN (SELECT provodi.id_ponude, MAX(br_dana), provodi.id_smestaja, provodi.id_lokacije FROM provodi GROUP BY provodi.id_ponude) provodi ON ponuda.id_ponude = provodi.id_ponude JOIN smestaj ON smestaj.id_smestaja=provodi.id_smestaja JOIN lokacija ON lokacija.id_lokacije=provodi.id_lokacije JOIN drzava ON drzava.id_drzava=lokacija.id_drzava
-     WHERE drzava.id_kontinenta=".$id."
-     ORDER BY ponuda.termin_polazak desc
-     LIMIT 50";
+     INNER JOIN (SELECT provodi.id_ponude, MAX(br_dana), provodi.id_smestaja, provodi.id_lokacije FROM provodi GROUP BY provodi.id_ponude) provodi ON ponuda.id_ponude = provodi.id_ponude JOIN smestaj ON smestaj.id_smestaja=provodi.id_smestaja JOIN lokacija ON lokacija.id_lokacije=provodi.id_lokacije JOIN drzava ON drzava.id_drzava=lokacija.id_drzava WHERE 1=1";
+    if(isset($_POST["pretraga"])){
+        $idK=$_POST["pretraga"];
+        $query = $query." AND drzava.id_kontinenta=".$idK;
+    }
+    if(isset($_POST["drzava"])){
+        $idD=$_POST["drzava"];
+        $query = $query." AND drzava.id_drzava=".$idD;
+    }
+    if(isset($_POST["lokacija"])){
+        $idL=$_POST["lokacija"];
+        $query = $query." AND lokacija.id_lokacije=".$idL;
+    }
+    if(isset($_POST["prevoz"])){
+        $idP=$_POST["prevoz"];
+        $query = $query." AND tip_prevoza.id=".$idP;
+    }
+    if(isset($_POST["polazak"]) && isset($_POST["povratak"])){
+        if($_POST["polazak"] != "" && $_POST["povratak"] != ""){
+        $polazak=$_POST["polazak"];
+        $povratak=$_POST["povratak"];
+        $query = $query." AND ponuda.termin_polazak >= '".$polazak."'";
+        $query = $query." AND ponuda.termin_povratak <= '".$povratak."'";
+    }
+    }elseif(isset($_POST["polazak"])){
+        if($_POST["polazak"] != ""){
+        $polazak=$_POST["polazak"];
+        $query = $query." AND ponuda.termin_polazak = '".$polazak."'";
+        }
+    }elseif(isset($_POST["povratak"])){
+        if($_POST["povratak"] != ""){
+        $povratak=$_POST["povratak"];
+        $query = $query." AND ponuda.termin_povratak = '".$povratak."'";
+        }
+    }
 
+     $query = $query." ORDER BY ponuda.termin_polazak desc LIMIT 50";
     if(isset($_GET['broj'])){
         if(isset($_GET['brojStranice'])){
             $query = str_replace("LIMIT 50", "LIMIT ".intval($_GET['broj'])*(intval($_GET['brojStranice'])-1).",".intval($_GET['broj']), $query);
@@ -94,9 +122,11 @@
             $query = str_replace("LIMIT 50", "LIMIT ".intval(30)*(intval($_GET['brojStranice'])-1).",".intval(30), $query);
         }
     }
-     $con->query("SET NAMES 'utf8'");
-     if ($result = mysqli_query($con, $query)) {
-        while ($row = mysqli_fetch_array($result)) {
+     $conn->query("SET NAMES 'utf8'");
+
+    $result=$conn->query($query);
+    if($result->num_rows > 0){
+    while($row = $result->fetch_assoc()){
             
 
     ?>
@@ -137,10 +167,10 @@
             <img class="slika" src=<?php echo $row['slika']?>>
             <div class="mala_lista">
                 <div class="male_kartice">
-                    <p class="paragraf">Polazak:<?php echo $row['polazak']?> (<?php echo $row['dana']?> дана)</p>
+                    <p class="paragraf">Polazak:<?php echo $row['polazak']?> </p>
                 </div>
                 <div class="male_kartice">
-                    <p class="paragraf">Destinacija:<?php echo $row['lokacija']?></p>
+                    <p class="paragraf">Trajanje: <?php echo $row['dana']?> dana</p>
                 </div>
                 <div class="male_kartice">
                     <p class="paragraf">Prevoz:<?php echo $row['prevoz']?></p>
@@ -150,11 +180,13 @@
                     <p class="paragraf">Cena:<?php echo intVal($row['cena'])?> € </p>
                 </div> 
                 
-            </div><a href="program.php?id=<?php echo $row['idsmest']?>"><div class="pozicija-dugme"><button class="dugme">Види понуду -></button></div></a>
+                </div><a href="program.php?lok=<?php echo $row['idlok']?>&pon=<?php echo $row['idpon']?>"><div class="pozicija-dugme"><button class="dugme">Види понуду -></button></div></a>
         </div>
         <?php
             }
-        }?>
+        }
+        CloseCon($conn);
+        ?>
         </div>
 <div class="stranicenje">
     <?php 

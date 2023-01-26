@@ -118,7 +118,7 @@
     cursor: pointer;
   }
   
-  #transport {
+  #transport, #lokacija {
     width: 150px;
     padding: 6px;
     font-size: 16px;
@@ -280,6 +280,7 @@
     text-align: center;
   }
 
+
   .button-rezervacija, .button-uredi, .button-obrisi {
     background-color: #FFFFD2; 
     color: #AA96DA; 
@@ -310,7 +311,7 @@
     margin: 5% auto;
   }
 
-  /*input[type=text]{
+  input[type=text]{
     width: 20%;
     padding: 12px 20px;
     margin-top: 5%;
@@ -318,7 +319,7 @@
     border: 1px solid #ccc;
     border-radius: 10px;
     box-sizing: border-box;
-  }*/
+  }
 
   .name, .surname {
     font-size: 18px;
@@ -359,11 +360,4 @@
     margin-top: 5px;
     cursor: pointer; 
     border-radius: 10px; 
-  }
-
-  .dodavanje-korisnika {
-    width: 80%;
-    align-items: center;
-    text-align: center;
-    margin-top: 10%;
   }
