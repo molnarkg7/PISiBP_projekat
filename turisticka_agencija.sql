@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `korisnik` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 INSERT INTO `korisnik` (`id_korisnika`, `username`, `sifra`, `ime`, `prezime`, `kontakt_telefon`, `email`, `id_tipa`) VALUES
-(2, 'uros', '123', 'Урош', 'Милошевић', '0614111002', 'milosevicurose14@gmail.com', 1),
+(2, 'uros', '123', 'Урош', 'Милошевић', '0614111002', 'milosevicurose14@gmail.com', 2),
 (3, 'uross', '123', 'Урош', 'Милошевић', '0614111002', 'milosevicurose14@gmail.com', 1);
 
 DROP TABLE IF EXISTS `lokacija`;
