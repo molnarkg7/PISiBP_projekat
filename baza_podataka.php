@@ -5,7 +5,7 @@
      $dbuser = "root";
      $dbpass = "";
      $db = "turisticka_agencija";
-     $conn = mysqli_connect($dbhost, $dbuser, $dbpass,$db) or die("Konekcija neuspesna: %s\n". $conn -> error);
+     $conn = new mysqli($dbhost, $dbuser, $dbpass, $db) or die("Konekcija neuspesna: %s\n". $conn -> error);
      
      return $conn;
      }
