@@ -122,9 +122,9 @@ include 'baza_podataka.php';
             $query = str_replace("LIMIT 50", "LIMIT ".intval(30)*(intval($_GET['brojStranice'])-1).",".intval(30), $query);
         }
     }
-     $conn->query("SET NAMES 'utf8'");
+     mysqli_query($conn ,"SET NAMES 'utf8'");
 
-    $result=$conn->query($query);
+    $result=mysqli_query($conn ,$query);
     if($result->num_rows > 0){
     while($row = $result->fetch_assoc()){
             
