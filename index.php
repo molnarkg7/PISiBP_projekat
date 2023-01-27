@@ -56,12 +56,12 @@ session_start();
                     <option disabled selected>Држава:</option>
                     <?php
                     $conn= OpenCon();
-                    $conn->query("SET NAMES 'utf8'");
+                    mysqli_query($conn ,"SET NAMES 'utf8'");
                      $sql="SELECT * FROM `drzava`"; 
                      if(isset($_GET['drzava'])){
                         $idDrzava=$_GET['drzava'];
                     }
-                     $rezultat=$conn->query($sql);
+                     $rezultat=mysqli_query($conn ,$sql);
                      if($rezultat->num_rows > 0){
                      while($red = $rezultat->fetch_assoc()){
                         if($red["id_drzava"] == $idDrzava){
@@ -78,14 +78,14 @@ session_start();
                     <option disabled selected>Локација</option>
                     <?php
                     $conn= OpenCon();
-                    $conn->query("SET NAMES 'utf8'");
+                   mysqli_query($conn ,"SET NAMES 'utf8'");
                     if(isset($_GET['drzava'])){
                         $idDrzava=$_GET['drzava'];
                         $sql="SELECT * FROM `lokacija` WHERE id_drzava = ".$idDrzava.""; 
                     }else{
                         $sql="SELECT * FROM `lokacija`"; 
                     }
-                     $rezultat=$conn->query($sql);
+                     $rezultat=mysqli_query($conn, $sql);
                      if($rezultat->num_rows > 0){
                      while($red = $rezultat->fetch_assoc()){
                         echo'<option value="'.$red["id_lokacije"].'">'.$red["mesto"].'</option>';
