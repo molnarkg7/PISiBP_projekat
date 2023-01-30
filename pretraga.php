@@ -1,7 +1,30 @@
 <?php
 include 'baza_podataka.php';
+$str="onchange=\"var x = 'pretraga.php?";
+if(isset($_POST["pretraga"])){
+    $idK=$_POST["pretraga"];
+    $str = $str."pretraga=".$idK."&";
+}
+if(isset($_POST["drzava"])){
+    $idD=$_POST["drzava"];
+    $str = $str."drzava=".$idD."&";
+}
+if(isset($_POST["lokacija"])){
+    $idL=$_POST["lokacija"];
+    $str = $str."lokacija=".$idL."&";
+}
+if(isset($_POST["prevoz"])){
+    $idP=$_POST["prevoz"];
+    $str = $str."prevoz=".$idP."&";
+}if(isset($_POST["polazak"])){
+    $polazak=$_POST["polazak"];
+    $str = $str."polazak=".$polazak."&";
+}if(isset($_POST["povratak"])){
+    $povratak=$_POST["povratak"];
+    $str = $str."povratak=".$povratak."&";
+}
 
-
+$str = $str."broj=' + document.getElementById('brojOgls').value; window.open(x, '_self');\"";
 ?>
 
 <!DOCTYPE html>
@@ -49,7 +72,7 @@ include 'baza_podataka.php';
 
 
     <div class="izbor">
-        <select class="stranicenje" id="brojOgls" onchange="var x = 'pretraga.php?user=4&broj=' + document.getElementById('brojOgls').value; window.open(x, '_self');">
+        <select class="stranicenje" id="brojOgls" <?php echo $str;?> >
         <option value="odaberi">Одабери број понуда</option>
         <option id="25" value="25" >25</option>
         <option id="50" value="50">50</option>
@@ -77,23 +100,42 @@ include 'baza_podataka.php';
     if(isset($_POST["pretraga"])){
         $idK=$_POST["pretraga"];
         $query = $query." AND drzava.id_kontinenta=".$idK;
+    }elseif(isset($_GET["pretraga"])){
+        $idK=$_GET["pretraga"];
+        $query = $query." AND drzava.id_kontinenta=".$idK;
     }
     if(isset($_POST["drzava"])){
         $idD=$_POST["drzava"];
+        $query = $query." AND drzava.id_drzava=".$idD;
+    }elseif(isset($_GET["drzava"])){
+        $idD=$_GET["drzava"];
         $query = $query." AND drzava.id_drzava=".$idD;
     }
     if(isset($_POST["lokacija"])){
         $idL=$_POST["lokacija"];
         $query = $query." AND lokacija.id_lokacije=".$idL;
+    }elseif(isset($_GET["lokacija"])){
+        $idL=$_GET["lokacija"];
+        $query = $query." AND lokacija.id_lokacije=".$idL;
     }
     if(isset($_POST["prevoz"])){
         $idP=$_POST["prevoz"];
+        $query = $query." AND tip_prevoza.id=".$idP;
+    }elseif(isset($_GET["prevoz"])){
+        $idP=$_GET["prevoz"];
         $query = $query." AND tip_prevoza.id=".$idP;
     }
     if(isset($_POST["polazak"]) && isset($_POST["povratak"])){
         if($_POST["polazak"] != "" && $_POST["povratak"] != ""){
         $polazak=$_POST["polazak"];
         $povratak=$_POST["povratak"];
+        $query = $query." AND ponuda.termin_polazak >= '".$polazak."'";
+        $query = $query." AND ponuda.termin_povratak <= '".$povratak."'";
+    }
+    }elseif(isset($_GET["polazak"]) && isset($_GET["povratak"])){
+        if($_GET["polazak"] != "" && $_GET["povratak"] != ""){
+        $polazak=$_GET["polazak"];
+        $povratak=$_GET["povratak"];
         $query = $query." AND ponuda.termin_polazak >= '".$polazak."'";
         $query = $query." AND ponuda.termin_povratak <= '".$povratak."'";
     }
@@ -105,6 +147,16 @@ include 'baza_podataka.php';
     }elseif(isset($_POST["povratak"])){
         if($_POST["povratak"] != ""){
         $povratak=$_POST["povratak"];
+        $query = $query." AND ponuda.termin_povratak = '".$povratak."'";
+        }
+    }elseif(isset($_GET["polazak"])){
+        if($_GET["polazak"] != ""){
+        $polazak=$_GET["polazak"];
+        $query = $query." AND ponuda.termin_polazak = '".$polazak."'";
+        }
+    }elseif(isset($_GET["povratak"])){
+        if($_GET["povratak"] != ""){
+        $povratak=$_GET["povratak"];
         $query = $query." AND ponuda.termin_povratak = '".$povratak."'";
         }
     }

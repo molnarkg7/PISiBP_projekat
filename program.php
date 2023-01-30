@@ -8,17 +8,17 @@ if(isset($_GET['pon'])){
 }
 $querylok = "SELECT distinct(lokacija.mesto) as lok
 FROM lokacija,provodi
-WHERE provodi.id_ponude = 2765  AND provodi.id_lokacije = lokacija.id_lokacije AND lokacija.id_lokacije != 24 ;
+WHERE provodi.id_ponude = ".$idpon."  AND provodi.id_lokacije = lokacija.id_lokacije AND lokacija.id_lokacije != ".$lok." ;
 ";
 $query = "SELECT lokacija.mesto as lok,month(ponuda.termin_polazak) as mesec,year(ponuda.termin_polazak) as godina,ROUND(ponuda.cena_putovanja+ponuda.cena_prevoza,2) as cena,tip_prevoza.naziv as prevoz,smestaj.naziv_objekta as imesm,tip_smestaja.varijanta as varijanta,smestaj.kategorija_smestaja as zvezda,smestaj.internet_konekcija as wifi,smestaj.tv as tv,smestaj.klima as klima,smestaj.frizider as frizider,smestaj.sef as sef,smestaj.slika as slk,smestaj.slika1 as slk1,smestaj.slika2 as slk2,smestaj.slika3 as slk3,smestaj.slika as slk4,smestaj.slika as slk5,lokacija.slika as lokslk
 FROM lokacija,provodi,ponuda,tip_prevoza,smestaj,tip_smestaja
-WHERE provodi.id_ponude = 2765  AND lokacija.id_lokacije = 24  AND ponuda.id_ponude = provodi.id_ponude AND tip_prevoza.id = ponuda.id_prevoza AND smestaj.id_smestaja = provodi.id_smestaja AND tip_smestaja.id_tipa = smestaj.tip_smestaja
+WHERE provodi.id_ponude = ".$idpon."  AND lokacija.id_lokacije = ".$lok."  AND ponuda.id_ponude = provodi.id_ponude AND tip_prevoza.id = ponuda.id_prevoza AND smestaj.id_smestaja = provodi.id_smestaja AND tip_smestaja.id_tipa = smestaj.tip_smestaja
 ";
 $query3 = "SELECT dani.opis as opis,dani.redni_br_dana as red
 FROM dani,provodi 
-WHERE dani.id_ponude = 2765 AND provodi.id_ponude = dani.id_ponude GROUP BY dani.opis;
+WHERE dani.id_ponude = ".$idpon." AND provodi.id_ponude = dani.id_ponude GROUP BY dani.opis;
 "
-/* Zameniti provodi.id_ponude = $idpon &&  lokacija.id_lokacije = $lok da pi se povezalo sa pretraga.php.. */
+
 ?>
 
 <!DOCTYPE html>
@@ -56,6 +56,7 @@ WHERE dani.id_ponude = 2765 AND provodi.id_ponude = dani.id_ponude GROUP BY dani
 
     <main class="main">
         <?php
+            mysqli_query($con ,"SET NAMES 'utf8'");
             if ($result = mysqli_query($con, $query)) {
             $row = mysqli_fetch_array($result)
         ?>   
@@ -157,7 +158,7 @@ WHERE dani.id_ponude = 2765 AND provodi.id_ponude = dani.id_ponude GROUP BY dani
                 <p class="napomena-text">Напомена за аранжман</p>
             </div>
             <div class="btn-rezervisi">
-                <a href="rezervacija.html" ><button class="button-rezervacija">Резервиши</button></a>
+                <a href="rezervacija.php?pon=<?php echo $idpon?>" ><button class="button-rezervacija">Резервиши</button></a>
                 <button class="button-uredi">Уреди</button>
                 <button class="button-obrisi">Обриши</button>
             </div>
