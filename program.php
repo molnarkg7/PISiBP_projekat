@@ -155,7 +155,7 @@ WHERE dani.id_ponude = ".$idpon." AND provodi.id_ponude = dani.id_ponude GROUP B
                 <p class="napomena-text">Напомена за аранжман</p>
             </div>
             <div class="btn-rezervisi">
-                <a href="rezervacija.php?pon=<?php echo $idpon?>" ><button class="button-rezervacija">Резервиши</button></a>
+                <a href="rezervacija.php?pon=<?php echo $idpon?>&lok=<?php echo $lok?>" ><button class="button-rezervacija">Резервиши</button></a>
                 <button class="button-uredi">Уреди</button>
                 <button class="button-obrisi">Обриши</button>
             </div>
