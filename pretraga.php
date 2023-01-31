@@ -1,7 +1,7 @@
 <?php
 include 'baza_podataka.php';
 $str="onchange=\"var x = 'pretraga.php?";
-if(isset($_POST["pretraga"])){
+if(isset($_POST["pretraga"]) && $_POST["pretraga"]=""){
     $idK=$_POST["pretraga"];
     $str = $str."pretraga=".$idK."&";
 }
@@ -22,7 +22,7 @@ if(isset($_POST["prevoz"])){
 }if(isset($_POST["povratak"])){
     $povratak=$_POST["povratak"];
     $str = $str."povratak=".$povratak."&";
-}if(isset($_GET["pretraga"])){
+}if(isset($_GET["pretraga"]) && $_GET["pretraga"]=""){
     $idK=$_GET["pretraga"];
     $str = $str."pretraga=".$idK."&";
 }
@@ -119,10 +119,10 @@ $str = $str."broj=' + document.getElementById('brojOgls').value; window.open(x, 
      $query ="SELECT  month(ponuda.termin_polazak) as mesec, year(ponuda.termin_polazak) as godina, smestaj.naziv_objekta as naziv,lokacija.mesto as lokacija, DATEDIFF(ponuda.termin_povratak, ponuda.termin_polazak) as dana, ponuda.termin_polazak as polazak,ponuda.cena_putovanja+ponuda.cena_prevoza as cena,tip_prevoza.naziv as prevoz,smestaj.id_smestaja as idsmest, lokacija.slika, lokacija.id_lokacije as idlok, ponuda.id_ponude as idpon
      FROM (ponuda JOIN tip_prevoza ON ponuda.id_prevoza=tip_prevoza.id) 
      INNER JOIN (SELECT provodi.id_ponude, MAX(br_dana), provodi.id_smestaja, provodi.id_lokacije FROM provodi GROUP BY provodi.id_ponude) provodi ON ponuda.id_ponude = provodi.id_ponude JOIN smestaj ON smestaj.id_smestaja=provodi.id_smestaja JOIN lokacija ON lokacija.id_lokacije=provodi.id_lokacije JOIN drzava ON drzava.id_drzava=lokacija.id_drzava WHERE 1=1";
-    if(isset($_POST["pretraga"])){
+    if(isset($_POST["pretraga"]) && $_POST["pretraga"]=""){
         $idK=$_POST["pretraga"];
         $query = $query." AND drzava.id_kontinenta=".$idK;
-    }elseif(isset($_GET["pretraga"])){
+    }elseif(isset($_GET["pretraga"]) && $_GET["pretraga"]=""){
         $idK=$_GET["pretraga"];
         $query = $query." AND drzava.id_kontinenta=".$idK;
     }
@@ -198,7 +198,6 @@ $str = $str."broj=' + document.getElementById('brojOgls').value; window.open(x, 
         }
     }
      mysqli_query($conn ,"SET NAMES 'utf8'");
-
     $result=mysqli_query($conn ,$query);
     if($result->num_rows > 0){
     while($row = $result->fetch_assoc()){

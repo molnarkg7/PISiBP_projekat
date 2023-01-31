@@ -100,7 +100,7 @@ session_start();
                     ?>
                 </select>
                 
-            <button type="submit" name="pretraga" value="1"><i class="fa fa-search"></i></button>
+            <button type="submit" name="pretraga" ><i class="fa fa-search"></i></button>
             </div>
 
 
