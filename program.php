@@ -111,10 +111,7 @@ WHERE dani.id_ponude = ".$idpon." AND provodi.id_ponude = dani.id_ponude GROUP B
                             <img src="<?php echo $row['slk2'] ?>" class="active">
                             <img src="<?php echo $row['slk3'] ?>" class="active">
                             <img src="<?php echo $row['slk4'] ?>" class="active">
-                            <img src="<?php echo $row['slk5'] ?>" class="active">
-                            
-                            
-                            
+                            <img src="<?php echo $row['slk5'] ?>" class="active">                             
                         </div>
                         <img  src="images/right-arrow.png" class="next">
                         
