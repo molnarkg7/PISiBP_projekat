@@ -6,10 +6,14 @@ session_start();
 if(isset($_GET["obrisi"])){
     $conn= OpenCon();
     mysqli_query($conn ,"SET NAMES 'utf8'");
-    $sql="DELETE FROM korisnik where id_korisnika=".$_GET["obrisi"]; 
+    $sql="DELETE FROM rezervacija where id_korisnika=".$_GET["obrisi"]; 
     $rezultat=mysqli_query($conn, $sql);
     if($rezultat){
+      $sql="DELETE FROM korisnik where id_korisnika=".$_GET["obrisi"]; 
+      $rezultat=mysqli_query($conn, $sql);
+      if($rezultat){
         echo '<script>alert("Брисање успешно.")</script>';
+      }
     }
 }
 
@@ -67,49 +71,53 @@ CloseCon($conn);
 
     <div class="admin">
         <h1 class="admin-naslov">Контролна табла</h1>
-        <table>
-          <tr>
-            <th>ИД</th>
-            <th>Корисничко име</th>
-            <th>Име</th>
-            <th>Презиме</th>
-            <th>Мејл адреса</th>
-            <th>Лозинка</th>           
-            <th>Контакт телефон</th>
-            <th>Рола</th>
-            <th>Акција</th>
-          </tr>
 
-          <?php
-            $conn= OpenCon();
-            mysqli_query($conn ,"SET NAMES 'utf8'");
-            $sql="SELECT * FROM `korisnik` JOIN tip_korisnika ON korisnik.id_tipa=tip_korisnika.id_tipa"; 
-            $rezultat=mysqli_query($conn, $sql);
-            if($rezultat->num_rows > 0){
-            while($red = $rezultat->fetch_assoc()){
-               
-            ?>
-          <tr>
-            <td><?php echo $red['id_korisnika']?></td>
-            <td><?php echo $red['username']?></td>
-            <td><?php echo $red['ime']?></td>
-            <td><?php echo $red['prezime']?></td>
-            <td><?php echo $red['email']?></td>
-            <td><?php echo $red['sifra']?></td>
-            <td><?php echo $red['kontakt_telefon']?></td>
-            <td><?php echo $red['naziv_tipa']?></td>
-            <td>
-              <button class="edit-btn">Измени</button>
-              <a href=<?php echo "/admin.php?obrisi=".$red['id_korisnika']?>><button class="delete-btn">Обриши</button></a>
-            </td>
+  <div class="container-tabela">      
+        <div class="tabela">
+          <table>
+            <tr>
+              <th>ИД</th>
+              <th>Корисничко име</th>
+              <th>Име</th>
+              <th>Презиме</th>
+              <th>Мејл адреса</th>
+              <th>Лозинка</th>           
+              <th>Контакт телефон</th>
+              <th>Рола</th>
+              <th>Акција</th>
+            </tr>
 
             <?php
+              $conn= OpenCon();
+              mysqli_query($conn ,"SET NAMES 'utf8'");
+              $sql="SELECT * FROM `korisnik` JOIN tip_korisnika ON korisnik.id_tipa=tip_korisnika.id_tipa"; 
+              $rezultat=mysqli_query($conn, $sql);
+              if($rezultat->num_rows > 0){
+              while($red = $rezultat->fetch_assoc()){
+                
+              ?>
+            <tr>
+              <td><input type="text" value=<?php echo $red['id_korisnika']?>></td>
+              <td><input type="text" value=<?php echo $red['username']?>></td>
+              <td><input type="text" value=<?php echo $red['ime']?>></td>
+              <td><input type="text" value=<?php echo $red['prezime']?>></td>
+              <td><input type="text" value=<?php echo $red['email']?>></td>
+              <td><input type="text" value=<?php echo $red['sifra']?>></td>
+              <td><input type="text" value=<?php echo $red['kontakt_telefon']?>></td>
+              <td><input type="text" value=<?php echo $red['naziv_tipa']?>></td>
+              <td>
+                <button class="edit-btn">Измени</button>
+                <a href=<?php echo "/admin.php?obrisi=".$red['id_korisnika']?>><button class="delete-btn">Обриши</button></a>
+              </td>
 
-            }
-        }
-        ?>
-          </tr>
-        </table>  
+              <?php
+
+              }
+          }
+          ?>
+            </tr>
+          </table>
+        </div> 
 
 
         <div class="center">
@@ -135,8 +143,7 @@ CloseCon($conn);
                 </form>
               </div>
           </div> 
-          </div>
-        
+        </div>
         <div class="potvrda">
           <h1 class="potvrda-naslov">Потврда резервација</h1>
           <table>
@@ -169,8 +176,9 @@ CloseCon($conn);
               </td>
             </tr>
           </table> 
+          </div>
         </div>
-
+    </div>
     </div>
 
 </body>
