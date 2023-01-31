@@ -8,8 +8,14 @@ html {
   background-color: #AA96DA;
 } 
 
+.grid-container {
+  width: 100%;
+  margin: auto;
+}
+
 .grid{
-  margin: 0 50px;
+  width: 90%;
+  margin: auto auto;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   column-gap: 60px;
