@@ -299,7 +299,18 @@ i{
   border-radius: 10px; 
 }
 
-.opis-aranzmana, .opis-smestaj, .napomena {
+.opis-aranzmana {
+  text-align: center;
+  height: auto;
+  width: 80%;
+  margin-top: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #FFFFD2;
+  border-radius: 10px;
+}
+
+.opis-smestaj, .napomena {
   text-align: center;
   height: 100px;
   width: 80%;
