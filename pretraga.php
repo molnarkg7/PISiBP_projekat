@@ -22,7 +22,29 @@ if(isset($_POST["prevoz"])){
 }if(isset($_POST["povratak"])){
     $povratak=$_POST["povratak"];
     $str = $str."povratak=".$povratak."&";
+}if(isset($_GET["pretraga"])){
+    $idK=$_GET["pretraga"];
+    $str = $str."pretraga=".$idK."&";
 }
+if(isset($_GET["drzava"])){
+    $idD=$_GET["drzava"];
+    $str = $str."drzava=".$idD."&";
+}
+if(isset($_GET["lokacija"])){
+    $idL=$_GET["lokacija"];
+    $str = $str."lokacija=".$idL."&";
+}
+if(isset($_GET["prevoz"])){
+    $idP=$_GET["prevoz"];
+    $str = $str."prevoz=".$idP."&";
+}if(isset($_GET["polazak"])){
+    $polazak=$_GET["polazak"];
+    $str = $str."polazak=".$polazak."&";
+}if(isset($_GET["povratak"])){
+    $povratak=$_GET["povratak"];
+    $str = $str."povratak=".$povratak."&";
+}
+
 
 $str = $str."broj=' + document.getElementById('brojOgls').value; window.open(x, '_self');\"";
 ?>
@@ -162,6 +184,7 @@ $str = $str."broj=' + document.getElementById('brojOgls').value; window.open(x, 
     }
 
      $query = $query." ORDER BY ponuda.termin_polazak desc LIMIT 50";
+    
     if(isset($_GET['broj'])){
         if(isset($_GET['brojStranice'])){
             $query = str_replace("LIMIT 50", "LIMIT ".intval($_GET['broj'])*(intval($_GET['brojStranice'])-1).",".intval($_GET['broj']), $query);
