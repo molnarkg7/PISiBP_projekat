@@ -17,6 +17,11 @@ session_start();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="style.css">
     <title>2УЂН</title>
+    <script> function funk(){
+    var x = document.getElementById("lokacija").value;
+    location.href='index.php?drzava=' + x;
+    
+    }</script>
 </head>
 <body class="body">
     <header class="header">
@@ -52,7 +57,7 @@ session_start();
         <form class="forms" action="/pretraga.php" method="post">
             <div class="search-bar">
         
-                <select id="lokacija" name="drzava">
+                <select id="lokacija" name="drzava" onchange="funk()">
                     <option disabled selected>Држава:</option>
                     <?php
                     $conn= OpenCon();
@@ -65,9 +70,9 @@ session_start();
                      if($rezultat->num_rows > 0){
                      while($red = $rezultat->fetch_assoc()){
                         if($red["id_drzava"] == $idDrzava){
-                            echo'<option onclick="location.href=\'index.php?drzava='.$red["id_drzava"].'\'" value="'.$red["id_drzava"].'" selected>'.$red["naziv"].'</option>';
+                            echo'<option  value="'.$red["id_drzava"].'" selected>'.$red["naziv"].'</option>';
                         }else{
-                            echo'<option onclick="location.href=\'index.php?drzava='.$red["id_drzava"].'\'" value="'.$red["id_drzava"].'">'.$red["naziv"].'</option>';
+                            echo'<option value="'.$red["id_drzava"].'">'.$red["naziv"].'</option>';
                         }
                      }
                     }
@@ -99,10 +104,10 @@ session_start();
             </div>
 
 
-            <div class="transport-type">
-                <select id="transport" name="prevoz">
+            <div class="transport-type" >
+                <select id="transport" name="prevoz" >
                     <option  disabled selected>Изабери превоз:</option>
-                    <option value="1">Аутобус</option>
+                    <option  value="1">Аутобус</option>
                     <option value="4">Воз</option>
                     <option value="2">Авион</option>
                     <option value="3">Крстарење</option>
