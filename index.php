@@ -122,7 +122,7 @@ session_start();
             </div>
                 
 
-        <section>
+        <section class="grid-container">
             <div class="grid">
                 <div class="grid-info">
                    <img class="image" src="images/evropa.jpeg">
