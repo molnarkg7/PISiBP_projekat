@@ -11,14 +11,13 @@
   margin: auto;
 }
 .center{
-  margin-top: 15%;
-  position: absolute;
-  top: 50%;
   left: 40%;
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
 }
 .form {
+  position: absolute;
+  top: 40px;
   z-index: 1;
   background: #FFFFD2;
   max-width: 360px;
@@ -26,6 +25,11 @@
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
+
+.tabela {
+  position: relative;
+}
+
 .item-wrap{
   padding-top: 20px;
 }
