@@ -50,7 +50,8 @@ html {
 }
 
 .kartice{
-  height: 600px;
+  height: auto;
+  /*height: 600px;*/
   
   background-color: #FFFFD2;
   border-radius: 10px;
@@ -91,6 +92,35 @@ html {
 .izbor{
   width: 100%;
 }
+
+  a {
+    text-decoration: none;
+  }
+
+  .stranice-pojedinacno {
+    display: inline;
+    padding: 15px;
+  }
+
+  .stranicenje-container {
+    margin-top: 2%;
+    width: 100%;
+    align-items: center;
+    text-align: center;
+  }
+
+  a:hover {
+    color: black;
+  }
+
+  .stranica {
+    padding: 10px;
+    background-color: #FFFFD2;
+    font-weight: bold;
+    font-size: 24px;
+    color: #AA96DA;
+  }
+
   .stranicenje {
       display: block;
       margin: auto;
