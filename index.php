@@ -126,19 +126,19 @@ session_start();
             <div class="grid">
                 <div class="grid-info">
                    <img class="image" src="images/evropa.jpeg">
-                   <button type="submit" name="pretraga" value="1" class="buttons">Европа -></button>  
+                   <button type="submit" name="pretraga" value="4" class="buttons">Европа -></button>  
                 </div>
                 <div class="grid-info">
                    <img class="image" src="images/azija.jpg">
-                   <button type="submit" name="pretraga" value="2" class="buttons">Азија -></button>        
+                   <button type="submit" name="pretraga" value="1" class="buttons">Азија -></button>        
                 </div>
                 <div class="grid-info">
                    <img class="image" src="images/afrika.jpg">
-                   <button type="submit" name="pretraga" value="3" class="buttons">Африка-></button>             
+                   <button type="submit" name="pretraga" value="2" class="buttons">Африка-></button>             
                 </div>
                 <div class="grid-info">
                    <img class="image" src="images/severna.jpg">
-                   <button type="submit" name="pretraga" value="4" class="buttons">Северна Америка -></button>             
+                   <button type="submit" name="pretraga" value="6" class="buttons">Северна Америка -></button>             
                 </div>
                 <div class="grid-info">
                    <img class="image" src="images/juzna.jpg">
@@ -146,7 +146,7 @@ session_start();
                 </div>
                 <div class="grid-info">
                    <img class="image"src="images/australia.jpg">
-                   <button type="submit" name="pretraga" value="6" class="buttons">Аустралија -></button>           
+                   <button type="submit" name="pretraga" value="3" class="buttons">Аустралија -></button>           
                </div>
             </div>
         </section>
