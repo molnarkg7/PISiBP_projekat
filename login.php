@@ -4,6 +4,7 @@ session_start();
 if(isset($_GET["o"])){
   $_SESSION["potvrdjenpristup"] = false;
   $_SESSION['korisnik']=0;
+  $_SESSION['id_tipa']=0;
 }
 if(isset($_GET["nijeprijavljen"])){
   echo '<script>alert("Да бисте поставили оглас, морате бити пријављени.")</script>';

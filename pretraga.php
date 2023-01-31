@@ -1,5 +1,6 @@
 <?php
 include 'baza_podataka.php';
+session_start();
 $str="onchange=\"var x = 'pretraga.php?";
 if(isset($_POST["pretraga"]) && $_POST["pretraga"]=""){
     $idK=$_POST["pretraga"];
@@ -84,10 +85,21 @@ $str = $str."broj=' + document.getElementById('brojOgls').value; window.open(x, 
             </div>
 
             <div class="navtop-list">
-                <a href="login.html">Пријави се</a>
+            <?php 
+            if($_SESSION['potvrdjenpristup'] == true)
+            {
+               echo'<a href="login.php?o=1">Одјави се</a>';
+               if($_SESSION['id_tipa']==2){
+                echo'<a href="admin.php">Контролна табла</a>';
+               }
+            }else{
+                echo'<a href="login.php">Пријави се</a>';
+            }
+            ?>    
                 <a href="job.html">Посао</a>
                 <a href="contact.html">Контакт</a>
                 <a href="about.html">О нама</a>
+                <a href="index.php">Почетна страна</a>
             </div>
         </div>
     </header>

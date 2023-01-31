@@ -1,5 +1,7 @@
 <?php
  include('db.php');
+ session_start();
+
  if(isset($_GET['lok'])){
  $lok=$_GET['lok'];
  }
@@ -45,7 +47,17 @@ WHERE dani.id_ponude = ".$idpon." AND provodi.id_ponude = dani.id_ponude GROUP B
             </div>
 
             <div class="navtop-list">
-                <a href="login.php">Пријави се</a>
+            <?php 
+            if($_SESSION['potvrdjenpristup'] == true)
+            {
+               echo'<a href="login.php?o=1">Одјави се</a>';
+               if($_SESSION['id_tipa']==2){
+                echo'<a href="admin.php">Контролна табла</a>';
+               }
+            }else{
+                echo'<a href="login.php">Пријави се</a>';
+            }
+            ?>    
                 <a href="job.html">Посао</a>
                 <a href="contact.html">Контакт</a>
                 <a href="about.html">О нама</a>
@@ -156,8 +168,11 @@ WHERE dani.id_ponude = ".$idpon." AND provodi.id_ponude = dani.id_ponude GROUP B
             </div>
             <div class="btn-rezervisi">
                 <a href="rezervacija.php?pon=<?php echo $idpon?>&lok=<?php echo $lok?>" ><button class="button-rezervacija">Резервиши</button></a>
-                <button class="button-uredi">Уреди</button>
-                <button class="button-obrisi">Обриши</button>
+                <?php if($_SESSION['id_tipa'] == 2 || $_SESSION['id_tipa'] == 3){
+                    echo'<button class="button-uredi">Уреди</button>';
+                    echo'<button class="button-obrisi">Обриши</button>';
+                }               
+                ?>                
             </div>
         <?php
             }

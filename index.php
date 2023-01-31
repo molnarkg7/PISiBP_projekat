@@ -3,10 +3,6 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 include 'baza_podataka.php';
 session_start();
 
-
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,10 +30,9 @@ session_start();
             if($_SESSION['potvrdjenpristup'] == true)
             {
                echo'<a href="login.php?o=1">Одјави се</a>';
-               /*if($_SESSION['id_tipa']==2){
-                echo'<a href="odobravanjeOglasa.php">Одобри огласе</a>';
-                echo'<a href="kontrolnatabla.php">Контролна табла</a>';
-               }*/
+               if($_SESSION['id_tipa']==2){
+                echo'<a href="admin.php">Контролна табла</a>';
+               }
             }else{
                 echo'<a href="login.php">Пријави се</a>';
             }

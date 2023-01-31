@@ -1,7 +1,11 @@
 <?php
 include 'baza_podataka.php';
+session_start();
 if(isset($_GET['pon'])){
     $idpon=$_GET['pon'];
+}
+if(isset($_GET['lok'])){
+    $lok=$_GET['lok'];
 }
 if(isset($_POST["rezervacijaunos"])){
     $ime           = $_POST['ime'];
@@ -13,17 +17,21 @@ if(isset($_POST["rezervacijaunos"])){
     $telefon         = strval($_POST['mobilni']);
     $komentar         = $_POST['komentar'];
     $idpon=$_POST["rezervacijaunos"];
+    $lok=$_POST["lok"];
 
    
 $conn = OpenCon();
 $conn->query("SET NAMES 'utf8'");
-
-    $sql = "INSERT INTO `korisnik` (`ime`, `prezime`, `id_tipa`, `email`, `kontakt_telefon`) VALUES ('$ime', '$prezime', 1, '$email', '$telefon');";
-    if($conn->query($sql)){
-        $sql = "INSERT INTO `rezervacija` (`id_aranzmana`, `id_korisnika`, `nacin_placanja`, `broj_dece`, `broj_odraslih`, `komentar`) 
-        SELECT ".$idpon.", id_korisnika, '".$placanje."', ".$deca.", ".$odrasli.", '".$komentar."' FROM korisnik WHERE email='".$email."'";
+$sql="SELECT id_korisnika FROM korisnik WHERE email='".$email."'"; 
+$rezultat=mysqli_query($conn, $sql);
+    if($rezultat->num_rows == 0){
+        $sql = "INSERT INTO `korisnik` (`ime`, `prezime`, `id_tipa`, `email`, `kontakt_telefon`) VALUES ('$ime', '$prezime', 1, '$email', '$telefon');";
+        if($conn->query($sql)){
+            $sql = "INSERT INTO `rezervacija` (`id_aranzmana`, `id_korisnika`, id_lokacije, `nacin_placanja`, `broj_dece`, `broj_odraslih`, `komentar`, odobren) 
+            SELECT ".$idpon.", id_korisnika,".$lok.", '".$placanje."', ".$deca.", ".$odrasli.", '".$komentar."', 0 FROM korisnik WHERE email='".$email."'";
          if($conn->query($sql)){
             echo '<script>alert("Резервација унета.")</script>';
+            header( 'location: /index.php' );
          }else{
             $conn->query("DELETE FROM korisnik WHERE email='".$email."'");
             echo $conn->error;
@@ -34,6 +42,17 @@ $conn->query("SET NAMES 'utf8'");
         echo $conn->error;
         echo '<script>alert("Грешка при уносу, проверите унете податке.")</script>';
     }
+    }else{
+        $sql = "INSERT INTO `rezervacija` (`id_aranzmana`, `id_korisnika`, id_lokacije, `nacin_placanja`, `broj_dece`, `broj_odraslih`, `komentar`, odobren) 
+        SELECT ".$idpon.", id_korisnika,".$lok.", '".$placanje."', ".$deca.", ".$odrasli.", '".$komentar."', 0 FROM korisnik WHERE email='".$email."'";
+         if($conn->query($sql)){
+            echo '<script>alert("Резервација унета.")</script>';
+            header( 'location: /index.php' );
+         }else{
+        echo '<script>alert("Грешка при уносу, проверите унете податке.")</script>';
+        }
+    }
+    
 CloseCon($conn);
 }
 ?>
@@ -56,7 +75,17 @@ CloseCon($conn);
             </div>
 
             <div class="navtop-list">
-                <a href="login.php">Пријави се</a>
+            <?php 
+            if($_SESSION['potvrdjenpristup'] == true)
+            {
+               echo'<a href="login.php?o=1">Одјави се</a>';
+               if($_SESSION['id_tipa']==2){
+                echo'<a href="admin.php">Контролна табла</a>';
+               }
+            }else{
+                echo'<a href="login.php">Пријави се</a>';
+            }
+            ?>    
                 <a href="job.html">Посао</a>
                 <a href="contact.html">Контакт</a>
                 <a href="about.html">О нама</a>
@@ -79,6 +108,7 @@ CloseCon($conn);
                   <input type="email" id="email" name="email" placeholder="Ваша мејл адреса" required>
                   <input type="text" id="putnici" name="putniciodrasli" placeholder="Број одраслих" required>
                   <input type="text" id="putnici" name="putnicideca" placeholder="Број деце" required>
+                  <input type="text" id="lok" name="lok" value=<?php echo $lok ?> hidden>
                   <fieldset>
                     <legend>Изабери начин плаћања:</legend>
                 
