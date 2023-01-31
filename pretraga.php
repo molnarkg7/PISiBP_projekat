@@ -262,38 +262,38 @@ $str = $str."broj=' + document.getElementById('brojOgls').value; window.open(x, 
         CloseCon($conn);
         ?>
         </div>
-<div class="stranicenje">
+<div class="stranicenje-container">
     <?php 
      if(isset($_GET['brojStranice'])){
         echo '
-        <a href="pretraga.php?';
+        <a class="stranica" href="pretraga.php?';
         if(isset($_GET['user'])){echo "id=".$_GET['user']."&"; }
         if(isset($_GET['broj'])){echo "broj=".$_GET['broj']."&"; }
         echo 'brojStranice='.(intval($_GET['brojStranice'])-1).'">'.(intval($_GET['brojStranice'])-1).'</a>';
-        echo '<div>
-        <a href="pretraga.php?';
+        echo '<div class="stranice-pojedinacno">
+        <a class="stranica" href="pretraga.php?';
         if(isset($_GET['user'])){echo "user=".$_GET['user']."&"; }
         if(isset($_GET['broj'])){echo "broj=".$_GET['broj']."&"; }
         echo 'brojStranice='.(intval($_GET['brojStranice'])).'">'.(intval($_GET['brojStranice'])).'</a>';
-        echo '<div>
-        <a href="pretraga.php?';
+        echo '<div class="stranice-pojedinacno">
+        <a class="stranica" href="pretraga.php?';
         if(isset($_GET['user'])){echo "user=".$_GET['user']."&"; }
         if(isset($_GET['broj'])){echo "broj=".$_GET['broj']."&"; }
         echo 'brojStranice='.(intval($_GET['brojStranice'])+1).'">'.(intval($_GET['brojStranice'])+1).'</a>';
     }
     else{
         echo '
-        <a href="pretraga.php?';
+        <a class="stranica" href="pretraga.php?';
         if(isset($_GET['user'])){echo "id=".$_GET['user']."&"; }
         if(isset($_GET['broj'])){echo "broj=".$_GET['broj']."&"; }
         echo 'brojStranice=1">1</a>';
-        echo '<div>
-        <a href="pretraga.php?';
+        echo '<div class="stranice-pojedinacno">
+        <a class="stranica" href="pretraga.php?';
         if(isset($_GET['user'])){echo "user=".$_GET['user']."&"; }
         if(isset($_GET['broj'])){echo "broj=".$_GET['broj']."&"; }
         echo 'brojStranice=2">2</a>';
-        echo '<div>
-        <a href="pretraga.php?';
+        echo '<div class="stranice-pojedinacno">
+        <a class="stranica" href="pretraga.php?';
         if(isset($_GET['user'])){echo "user=".$_GET['user']."&"; }
         if(isset($_GET['broj'])){echo "broj=".$_GET['broj']."&"; }
         echo 'brojStranice=3">3</a>';
