@@ -3,6 +3,32 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 include 'baza_podataka.php';
 session_start();
 
+if(isset($_GET["obrisioglas"])){
+    $conn= OpenCon();
+    mysqli_query($conn ,"SET NAMES 'utf8'");
+    $sql="DELETE FROM dani where id_ponude=".$_GET["obrisioglas"]; 
+    $rezultat=mysqli_query($conn, $sql);
+    if($rezultat){
+        $sql="DELETE FROM provodi where id_ponude=".$_GET["obrisioglas"]; 
+        $rezultat=mysqli_query($conn, $sql);
+        if($rezultat){
+            $sql="DELETE FROM ponuda where id_ponude=".$_GET["obrisioglas"]; 
+            $rezultat=mysqli_query($conn, $sql);
+            if($rezultat){
+                echo '<script>alert("Брисање успешно.")</script>';
+            }else{
+                echo '<script>alert("Не можете обрисати пунуду која има резервација.")</script>';
+            }
+        }else{
+            echo '<script>alert("Не можете обрисати пунуду која има резервација 2.")</script>';
+        }
+        
+    }else{
+        echo '<script>alert("Не можете обрисати пунуду која има резервација 3.")</script>';
+    }
+    CloseCon($conn);
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

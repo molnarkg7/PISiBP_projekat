@@ -1,7 +1,7 @@
 <?php
  include('db.php');
  session_start();
-
+ error_reporting(E_ERROR | E_WARNING | E_PARSE);
  if(isset($_GET['lok'])){
  $lok=$_GET['lok'];
  }
@@ -17,8 +17,8 @@ FROM lokacija,provodi,ponuda,tip_prevoza,smestaj,tip_smestaja
 WHERE provodi.id_ponude = ".$idpon."  AND lokacija.id_lokacije = ".$lok."  AND ponuda.id_ponude = provodi.id_ponude AND tip_prevoza.id = ponuda.id_prevoza AND smestaj.id_smestaja = provodi.id_smestaja AND tip_smestaja.id_tipa = smestaj.tip_smestaja
 ";
 $query3 = "SELECT dani.opis as opis,dani.redni_br_dana as red
-FROM dani,provodi 
-WHERE dani.id_ponude = ".$idpon." AND provodi.id_ponude = dani.id_ponude GROUP BY dani.opis;
+FROM dani
+WHERE dani.id_ponude = ".$idpon.";
 "
 
 ?>
@@ -107,7 +107,7 @@ WHERE dani.id_ponude = ".$idpon." AND provodi.id_ponude = dani.id_ponude GROUP B
                         ?><h2>
                     </p>
                        
-                    <p class="lokacija-aranzmana"><i><?php echo $row['lok'] ?></i>,<?php if ($result1 = mysqli_query($con, $querylok)) {while ($row1 = mysqli_fetch_array($result1)) { echo $row1['lok']; }}?></p>
+                    <p class="lokacija-aranzmana"><b><?php echo $row['lok'] ?></b><?php if ($result1 = mysqli_query($con, $querylok)) {echo " - "; while ($row1 = mysqli_fetch_array($result1)) { echo $row1['lok']." "; }}?></p>
                     
                 </div>
                 
@@ -149,7 +149,7 @@ WHERE dani.id_ponude = ".$idpon." AND provodi.id_ponude = dani.id_ponude GROUP B
                     while($row3 = mysqli_fetch_array($result)){
                 ?>
                 
-                    Dan<?php echo $row3['red'] ?>: <?php echo $row3['opis'] ?>.
+                    Дан <?php echo $row3['red'] ?>: <?php echo $row3['opis'] ?>.
                 </p>
                 <?php
                 }}
@@ -160,7 +160,7 @@ WHERE dani.id_ponude = ".$idpon." AND provodi.id_ponude = dani.id_ponude GROUP B
             <div class="opis-smestaj">
                 <p class="smestaj">
                     Смештај:
-                    <?php echo $row['imesm']?>,TIP SOBE:<?php echo $row['varijanta']?>,BROJ ZVEZDA:<?php echo $row['zvezda']?>,WIFI: <?php if($row['wifi'] == 1) {echo "IMA";} else {echo "NEMA";} ?>,KLIMA: <?php if($row['klima'] == 1) {echo "IMA";} else {echo "NEMA";} ?>,TV: <?php if($row['tv'] == 1) {echo "IMA";} else {echo "NEMA";} ?>,FRIZIDER: <?php if($row['frizider'] == 1) {echo "IMA";} else {echo "NEMA";} ?>,SEF: <?php if($row['sef'] == 1) {echo "IMA";} else {echo "NEMA";} ?>..
+                    <?php echo $row['imesm']?>, TIP SOBE:<?php echo $row['varijanta']?>, BROJ ZVEZDA:<?php echo $row['zvezda']?>, WIFI: <?php if($row['wifi'] == 1) {echo "IMA";} else {echo "NEMA";} ?>, KLIMA: <?php if($row['klima'] == 1) {echo "IMA";} else {echo "NEMA";} ?>, TV: <?php if($row['tv'] == 1) {echo "IMA";} else {echo "NEMA";} ?>, FRIZIDER: <?php if($row['frizider'] == 1) {echo "IMA";} else {echo "NEMA";} ?>, SEF: <?php if($row['sef'] == 1) {echo "IMA";} else {echo "NEMA";} ?>..
                 </p>
             </div>
             <div class="napomena">
@@ -169,8 +169,8 @@ WHERE dani.id_ponude = ".$idpon." AND provodi.id_ponude = dani.id_ponude GROUP B
             <div class="btn-rezervisi">
                 <a href="rezervacija.php?pon=<?php echo $idpon?>&lok=<?php echo $lok?>" ><button class="button-rezervacija">Резервиши</button></a>
                 <?php if($_SESSION['id_tipa'] == 2 || $_SESSION['id_tipa'] == 3){
-                    echo'<button class="button-uredi">Уреди</button>';
-                    echo'<button class="button-obrisi">Обриши</button>';
+                    echo'<a href="azuriraj.php?oglas='.$idpon.'&lok='.$lok.'"><button class="button-uredi">Уреди</button></a>';
+                    echo'<a href="index.php?obrisioglas='.$idpon.'"><button class="button-obrisi">Обриши</button></a>';
                 }               
                 ?>                
             </div>

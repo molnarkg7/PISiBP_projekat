@@ -1,8 +1,9 @@
 <?php
 include 'baza_podataka.php';
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
 session_start();
 $str="onchange=\"var x = 'pretraga.php?";
-if(isset($_POST["pretraga"]) && $_POST["pretraga"]=""){
+if(isset($_POST["pretraga"]) && $_POST["pretraga"] !=""){
     $idK=$_POST["pretraga"];
     $str = $str."pretraga=".$idK."&";
 }
@@ -23,7 +24,7 @@ if(isset($_POST["prevoz"])){
 }if(isset($_POST["povratak"])){
     $povratak=$_POST["povratak"];
     $str = $str."povratak=".$povratak."&";
-}if(isset($_GET["pretraga"]) && $_GET["pretraga"]=""){
+}if(isset($_GET["pretraga"]) && $_GET["pretraga"]=!""){
     $idK=$_GET["pretraga"];
     $str = $str."pretraga=".$idK."&";
 }
@@ -75,7 +76,7 @@ $str = $str."broj=' + document.getElementById('brojOgls').value; window.open(x, 
         }</script>
 </head>
 
-<?/*php if(isset($_GET['user'])){echo 'id='.$_GET['user'].'&'; } if(isset($_GET['brojStranice'])){echo 'brojStranice='.$_GET['brojStranice'].'&'; }*/?>  
+ 
 <body>
 
     <header class="header">
@@ -131,10 +132,11 @@ $str = $str."broj=' + document.getElementById('brojOgls').value; window.open(x, 
      $query ="SELECT  month(ponuda.termin_polazak) as mesec, year(ponuda.termin_polazak) as godina, smestaj.naziv_objekta as naziv,lokacija.mesto as lokacija, DATEDIFF(ponuda.termin_povratak, ponuda.termin_polazak) as dana, ponuda.termin_polazak as polazak,ponuda.cena_putovanja+ponuda.cena_prevoza as cena,tip_prevoza.naziv as prevoz,smestaj.id_smestaja as idsmest, lokacija.slika, lokacija.id_lokacije as idlok, ponuda.id_ponude as idpon
      FROM (ponuda JOIN tip_prevoza ON ponuda.id_prevoza=tip_prevoza.id) 
      INNER JOIN (SELECT provodi.id_ponude, MAX(br_dana), provodi.id_smestaja, provodi.id_lokacije FROM provodi GROUP BY provodi.id_ponude) provodi ON ponuda.id_ponude = provodi.id_ponude JOIN smestaj ON smestaj.id_smestaja=provodi.id_smestaja JOIN lokacija ON lokacija.id_lokacije=provodi.id_lokacije JOIN drzava ON drzava.id_drzava=lokacija.id_drzava WHERE 1=1";
-    if(isset($_POST["pretraga"]) && $_POST["pretraga"]=""){
+    
+    if(isset($_POST["pretraga"]) && $_POST["pretraga"] != ""){
         $idK=$_POST["pretraga"];
         $query = $query." AND drzava.id_kontinenta=".$idK;
-    }elseif(isset($_GET["pretraga"]) && $_GET["pretraga"]=""){
+    }elseif(isset($_GET["pretraga"]) && $_GET["pretraga"] != ""){
         $idK=$_GET["pretraga"];
         $query = $query." AND drzava.id_kontinenta=".$idK;
     }
@@ -209,6 +211,7 @@ $str = $str."broj=' + document.getElementById('brojOgls').value; window.open(x, 
             $query = str_replace("LIMIT 50", "LIMIT ".intval(30)*(intval($_GET['brojStranice'])-1).",".intval(30), $query);
         }
     }
+    
      mysqli_query($conn ,"SET NAMES 'utf8'");
     $result=mysqli_query($conn ,$query);
     if($result->num_rows > 0){
@@ -276,38 +279,68 @@ $str = $str."broj=' + document.getElementById('brojOgls').value; window.open(x, 
         </div>
 <div class="stranicenje-container">
     <?php 
-     if(isset($_GET['brojStranice'])){
+     if(isset($_GET['brojStranice']) && $_GET['brojStranice']> 1){
         echo '
         <a class="stranica" href="pretraga.php?';
-        if(isset($_GET['user'])){echo "id=".$_GET['user']."&"; }
+        if(isset($_POST["pretraga"])){echo "pretraga=".$_POST['pretraga']."&"; }elseif(isset($_GET["pretraga"])){echo "pretraga=".$_GET['pretraga']."&"; }
         if(isset($_GET['broj'])){echo "broj=".$_GET['broj']."&"; }
+        if(isset($_POST["drzava"])){echo "drzava=".$_POST['drzava']."&"; }elseif(isset($_GET["drzava"])){echo "drzava=".$_GET['drzava']."&"; }
+        if(isset($_POST["lokacija"])){echo "lokacija=".$_POST['lokacija']."&"; }elseif(isset($_GET["lokacija"])){echo "lokacija=".$_GET['lokacija']."&"; }
+        if(isset($_POST["prevoz"])){echo "prevoz=".$_POST['prevoz']."&"; }elseif(isset($_GET["prevoz"])){echo "prevoz=".$_GET['prevoz']."&"; }
+        if(isset($_POST["polazak"])){echo "polazak=".$_POST['polazak']."&"; }elseif(isset($_GET["polazak"])){echo "polazak=".$_GET['polazak']."&"; }
+        if(isset($_POST["povratak"])){echo "povratak=".$_POST['povratak']."&"; }elseif(isset($_GET["povratak"])){echo "povratak=".$_GET['povratak']."&"; }
         echo 'brojStranice='.(intval($_GET['brojStranice'])-1).'">'.(intval($_GET['brojStranice'])-1).'</a>';
         echo '<div class="stranice-pojedinacno">
         <a class="stranica" href="pretraga.php?';
-        if(isset($_GET['user'])){echo "user=".$_GET['user']."&"; }
+        if(isset($_POST["pretraga"])){echo "pretraga=".$_POST['pretraga']."&"; }elseif(isset($_GET["pretraga"])){echo "pretraga=".$_GET['pretraga']."&"; }
         if(isset($_GET['broj'])){echo "broj=".$_GET['broj']."&"; }
+        if(isset($_POST["drzava"])){echo "drzava=".$_POST['drzava']."&"; }elseif(isset($_GET["drzava"])){echo "drzava=".$_GET['drzava']."&"; }
+        if(isset($_POST["lokacija"])){echo "lokacija=".$_POST['lokacija']."&"; }elseif(isset($_GET["lokacija"])){echo "lokacija=".$_GET['lokacija']."&"; }
+        if(isset($_POST["prevoz"])){echo "prevoz=".$_POST['prevoz']."&"; }elseif(isset($_GET["prevoz"])){echo "prevoz=".$_GET['prevoz']."&"; }
+        if(isset($_POST["polazak"])){echo "polazak=".$_POST['polazak']."&"; }elseif(isset($_GET["polazak"])){echo "polazak=".$_GET['polazak']."&"; }
+        if(isset($_POST["povratak"])){echo "povratak=".$_POST['povratak']."&"; }elseif(isset($_GET["povratak"])){echo "povratak=".$_GET['povratak']."&"; }
         echo 'brojStranice='.(intval($_GET['brojStranice'])).'">'.(intval($_GET['brojStranice'])).'</a>';
         echo '<div class="stranice-pojedinacno">
         <a class="stranica" href="pretraga.php?';
-        if(isset($_GET['user'])){echo "user=".$_GET['user']."&"; }
+        if(isset($_POST["pretraga"])){echo "pretraga=".$_POST['pretraga']."&"; }elseif(isset($_GET["pretraga"])){echo "pretraga=".$_GET['pretraga']."&"; }
         if(isset($_GET['broj'])){echo "broj=".$_GET['broj']."&"; }
+        if(isset($_POST["drzava"])){echo "drzava=".$_POST['drzava']."&"; }elseif(isset($_GET["drzava"])){echo "drzava=".$_GET['drzava']."&"; }
+        if(isset($_POST["lokacija"])){echo "lokacija=".$_POST['lokacija']."&"; }elseif(isset($_GET["lokacija"])){echo "lokacija=".$_GET['lokacija']."&"; }
+        if(isset($_POST["prevoz"])){echo "prevoz=".$_POST['prevoz']."&"; }elseif(isset($_GET["prevoz"])){echo "prevoz=".$_GET['prevoz']."&"; }
+        if(isset($_POST["polazak"])){echo "polazak=".$_POST['polazak']."&"; }elseif(isset($_GET["polazak"])){echo "polazak=".$_GET['polazak']."&"; }
+        if(isset($_POST["povratak"])){echo "povratak=".$_POST['povratak']."&"; }elseif(isset($_GET["povratak"])){echo "povratak=".$_GET['povratak']."&"; }
         echo 'brojStranice='.(intval($_GET['brojStranice'])+1).'">'.(intval($_GET['brojStranice'])+1).'</a>';
     }
     else{
         echo '
         <a class="stranica" href="pretraga.php?';
-        if(isset($_GET['user'])){echo "id=".$_GET['user']."&"; }
+        if(isset($_POST["pretraga"])){echo "pretraga=".$_POST['pretraga']."&"; }elseif(isset($_GET["pretraga"])){echo "pretraga=".$_GET['pretraga']."&"; }
         if(isset($_GET['broj'])){echo "broj=".$_GET['broj']."&"; }
+        if(isset($_POST["drzava"])){echo "drzava=".$_POST['drzava']."&"; }elseif(isset($_GET["drzava"])){echo "drzava=".$_GET['drzava']."&"; }
+        if(isset($_POST["lokacija"])){echo "lokacija=".$_POST['lokacija']."&"; }elseif(isset($_GET["lokacija"])){echo "lokacija=".$_GET['lokacija']."&"; }
+        if(isset($_POST["prevoz"])){echo "prevoz=".$_POST['prevoz']."&"; }elseif(isset($_GET["prevoz"])){echo "prevoz=".$_GET['prevoz']."&"; }
+        if(isset($_POST["polazak"])){echo "polazak=".$_POST['polazak']."&"; }elseif(isset($_GET["polazak"])){echo "polazak=".$_GET['polazak']."&"; }
+        if(isset($_POST["povratak"])){echo "povratak=".$_POST['povratak']."&"; }elseif(isset($_GET["povratak"])){echo "povratak=".$_GET['povratak']."&"; }
         echo 'brojStranice=1">1</a>';
         echo '<div class="stranice-pojedinacno">
         <a class="stranica" href="pretraga.php?';
-        if(isset($_GET['user'])){echo "user=".$_GET['user']."&"; }
+        if(isset($_POST["pretraga"])){echo "pretraga=".$_POST['pretraga']."&"; }elseif(isset($_GET["pretraga"])){echo "pretraga=".$_GET['pretraga']."&"; }
         if(isset($_GET['broj'])){echo "broj=".$_GET['broj']."&"; }
+        if(isset($_POST["drzava"])){echo "drzava=".$_POST['drzava']."&"; }elseif(isset($_GET["drzava"])){echo "drzava=".$_GET['drzava']."&"; }
+        if(isset($_POST["lokacija"])){echo "lokacija=".$_POST['lokacija']."&"; }elseif(isset($_GET["lokacija"])){echo "lokacija=".$_GET['lokacija']."&"; }
+        if(isset($_POST["prevoz"])){echo "prevoz=".$_POST['prevoz']."&"; }elseif(isset($_GET["prevoz"])){echo "prevoz=".$_GET['prevoz']."&"; }
+        if(isset($_POST["polazak"])){echo "polazak=".$_POST['polazak']."&"; }elseif(isset($_GET["polazak"])){echo "polazak=".$_GET['polazak']."&"; }
+        if(isset($_POST["povratak"])){echo "povratak=".$_POST['povratak']."&"; }elseif(isset($_GET["povratak"])){echo "povratak=".$_GET['povratak']."&"; }
         echo 'brojStranice=2">2</a>';
         echo '<div class="stranice-pojedinacno">
         <a class="stranica" href="pretraga.php?';
-        if(isset($_GET['user'])){echo "user=".$_GET['user']."&"; }
+        if(isset($_POST["pretraga"])){echo "pretraga=".$_POST['pretraga']."&"; }elseif(isset($_GET["pretraga"])){echo "pretraga=".$_GET['pretraga']."&"; }
         if(isset($_GET['broj'])){echo "broj=".$_GET['broj']."&"; }
+        if(isset($_POST["drzava"])){echo "drzava=".$_POST['drzava']."&"; }elseif(isset($_GET["drzava"])){echo "drzava=".$_GET['drzava']."&"; }
+        if(isset($_POST["lokacija"])){echo "lokacija=".$_POST['lokacija']."&"; }elseif(isset($_GET["lokacija"])){echo "lokacija=".$_GET['lokacija']."&"; }
+        if(isset($_POST["prevoz"])){echo "prevoz=".$_POST['prevoz']."&"; }elseif(isset($_GET["prevoz"])){echo "prevoz=".$_GET['prevoz']."&"; }
+        if(isset($_POST["polazak"])){echo "polazak=".$_POST['polazak']."&"; }elseif(isset($_GET["polazak"])){echo "polazak=".$_GET['polazak']."&"; }
+        if(isset($_POST["povratak"])){echo "povratak=".$_POST['povratak']."&"; }elseif(isset($_GET["povratak"])){echo "povratak=".$_GET['povratak']."&"; }
         echo 'brojStranice=3">3</a>';
     }
     ?>
