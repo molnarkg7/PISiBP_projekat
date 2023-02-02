@@ -33,7 +33,7 @@ set_url("http://localhost:3000/login.php");
 
                 <input type="submit" name="logovanje" value="Пријави се">
                 
-                <p class="message"> Нисте регистровани? <a href="registration.php"> Направи налог </a></p>
+              
                 <?php
                     if(isset($_GET["logovanje"])){
                       

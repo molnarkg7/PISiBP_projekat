@@ -141,13 +141,14 @@ function dani(){
                 $opis="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolo.";
             }
             
-            $conn->query("INSERT INTO dani (redni_br_dana, id_ponude, id_programa, opis) VALUES (".$j.", ".$i.", FLOOR(1 + RAND()*(50- 1 + 1)), '".$opis."')");
+            $conn->query("INSERT INTO dani (redni_br_dana, id_ponude, id_programa, opis) VALUES (".$j.", ".$i.", FLOOR(1 + RAND()*(10- 1 + 1)), '".$opis."')");
         }
 
     }
     echo "Dani ".$conn->error;
     CloseCon($conn);
 }
+
 
 echo "The time is " . date("h:i:sa");
 baza();
@@ -158,5 +159,42 @@ echo "The time is " . date("h:i:sa");
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ /* function aktivnost() {
+    $conn = OpenCon();
+    $conn->query("SET NAMES 'utf8'");
+    for($i=1; $i<51; $i++){
+        for($j=1; $j<rand(1, 10); $j++){
+            $conn->query("INSERT INTO sadrzi_ativnosti (id_programa, id_aktivnosti) VALUES(".$j.", ".rand(1, 10).")");
+        }
+    }
+    echo $conn->error;
+  } 
+ 
+  function smesId() {
+    $conn = OpenCon();
+    $conn->query("SET NAMES 'utf8'");
+    for($i=1; $i<91; $i++){
+            $conn->query("UPDATE smestaj SET id_smestaja = ".$i." WHERE id_smestaja = 92+".$i."");
+        
+    }
+    echo $conn->error;
+  }*/
 ?>
 

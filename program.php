@@ -163,9 +163,6 @@ WHERE dani.id_ponude = ".$idpon.";
                     <?php echo $row['imesm']?>, TIP SOBE:<?php echo $row['varijanta']?>, BROJ ZVEZDA:<?php echo $row['zvezda']?>, WIFI: <?php if($row['wifi'] == 1) {echo "IMA";} else {echo "NEMA";} ?>, KLIMA: <?php if($row['klima'] == 1) {echo "IMA";} else {echo "NEMA";} ?>, TV: <?php if($row['tv'] == 1) {echo "IMA";} else {echo "NEMA";} ?>, FRIZIDER: <?php if($row['frizider'] == 1) {echo "IMA";} else {echo "NEMA";} ?>, SEF: <?php if($row['sef'] == 1) {echo "IMA";} else {echo "NEMA";} ?>..
                 </p>
             </div>
-            <div class="napomena">
-                <p class="napomena-text">Напомена за аранжман</p>
-            </div>
             <div class="btn-rezervisi">
                 <a href="rezervacija.php?pon=<?php echo $idpon?>&lok=<?php echo $lok?>" ><button class="button-rezervacija">Резервиши</button></a>
                 <?php if($_SESSION['id_tipa'] == 2 || $_SESSION['id_tipa'] == 3){

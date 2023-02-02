@@ -1,5 +1,11 @@
 <?php
 include 'baza_podataka.php';
+session_start();
+
+if($_SESSION["potvrdjenpristup"] != true ){
+    echo '<script>window.open("index.php", "_self")</script>';
+  }
+  
 if(isset($_POST["unoskorisnika"])){
     $user          = $_POST['Username'];
     $ime           = $_POST['Ime'];
