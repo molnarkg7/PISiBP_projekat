@@ -2,11 +2,18 @@
 include 'baza_podataka.php';
 
 function baza(){
-   /* $conn = OpenCon();
-    $conn->query($sql);
-    echo "Baza ".$conn->error;
-    CloseCon($conn);*/
-    smestaj();
+   
+    $conn = OpenCon();
+    mysqli_query($conn ,"SET NAMES 'utf8'");
+    $query="SELECT COUNT(*) as broj FROM `ponuda`";
+    if ($result = mysqli_query($conn, $query)) {
+        $red = mysqli_fetch_array($result);
+        $broj= $red["broj"];    
+        if($broj > 0){
+            smestaj();
+        }
+    }
+    
 }
 
 function smestaj() {
