@@ -1,7 +1,10 @@
 <?php
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
-include 'baza_podataka.php';
+include 'datainit.php';
 session_start();
+
+echo ' <div id="myDIV2">
+<iframe src="https://giphy.com/embed/chMZMLMPrywNzL3Lec" width="100%" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div>';
 
 if(isset($_GET["obrisioglas"])){
     $conn= OpenCon();
@@ -31,6 +34,8 @@ if(isset($_GET["obrisioglas"])){
 
 ?>
 <!DOCTYPE html>
+
+<div id="myDIV">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -176,3 +181,7 @@ if(isset($_GET["obrisioglas"])){
 
 </body>
 </html>
+</div>
+<?php
+baza();
+?>

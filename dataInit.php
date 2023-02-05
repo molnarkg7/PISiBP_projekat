@@ -2,18 +2,30 @@
 include 'baza_podataka.php';
 
 function baza(){
-   
-    $conn = OpenCon();
-    mysqli_query($conn ,"SET NAMES 'utf8'");
-    $query="SELECT COUNT(*) as broj FROM `ponuda`";
-    if ($result = mysqli_query($conn, $query)) {
-        $red = mysqli_fetch_array($result);
-        $broj= $red["broj"];    
-        if($broj > 0){
-            smestaj();
-        }
+echo '<script>var x = document.getElementById("myDIV");x.style.display = "none";</script>';
+$conn = OpenCon();
+mysqli_query($conn ,"SET NAMES 'utf8'");
+$query="SELECT COUNT(*) as broj FROM `ponuda`";
+if ($result = mysqli_query($conn, $query)) {
+    $red = mysqli_fetch_array($result);
+    $broj= $red["broj"];    
+    if($broj == 0){
+        
+        smestaj();
+    }else{
+        echo '<script>var x = document.getElementById("myDIV");x.style.display = "block";</script>';
+        echo '<script>var x = document.getElementById("myDIV2");x.style.display = "none"; var y = document.getElementById("aduio");  y.pause();</script>';
+    }
+} else{
+
+    $sql = file('turisticka_agencija.sql');
+    foreach($sql as $linija){
+        mysqli_query($conn, $linija);
     }
     
+    smestaj();
+
+}
 }
 
 function smestaj() {
@@ -58,6 +70,8 @@ function smestaj() {
 function ponuda(){
     $conn = OpenCon();
     $conn->query("SET NAMES 'utf8'");
+    ini_set('max_execution_time', '500');
+    set_time_limit(500);
     for($i=1; $i<60001; $i++){
         $query="SELECT CURRENT_DATE + INTERVAL FLOOR(RAND() * 20) DAY AS pocetni";
         if ($result = mysqli_query($conn, $query)) {
@@ -153,13 +167,9 @@ function dani(){
 
     }
     echo "Dani ".$conn->error;
+    echo '<script>window.open("index.php", "_self"); </script>';
     CloseCon($conn);
 }
-
-
-echo "The time is " . date("h:i:sa");
-baza();
-echo "The time is " . date("h:i:sa");
 
 
 
