@@ -47,7 +47,7 @@ Aранжмани подразумеваjу:
 
 ЧЛАНОВИ ТИМА:
 
-• Урош Петровић 623/2019 (uros2000kg@gmail.com)
-• Урош Милошевић 628/2019 (milosevicurose14@gmail.com)
-• Никола Кадић 638/2019 (nikolakadic1@gmail.com)
-• Ђорђе Молнар 660/2019 (molnarkg7@gmail.com)
+- Урош Петровић 623/2019 (uros2000kg@gmail.com)
+- Урош Милошевић 628/2019 (milosevicurose14@gmail.com)
+- Никола Кадић 638/2019 (nikolakadic1@gmail.com)
+- Ђорђе Молнар 660/2019 (molnarkg7@gmail.com)
