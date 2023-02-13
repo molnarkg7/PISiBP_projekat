@@ -114,7 +114,7 @@ CloseCon($conn);
                 echo'<a href="login.php">Пријави се</a>';
             }
             ?>    
-                <a href="dodaj.html">Додај понуду/аранжман</a>
+                <a href="dodaj.php">Додај понуду/аранжман</a>
             <a href="index.php">Почетна страна</a>
         </div>
     </div>
