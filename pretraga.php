@@ -51,7 +51,7 @@ if(isset($_GET["prevoz"])){
 $str = $str."broj=' + document.getElementById('brojOgls').value; window.open(x, '_self');\"";
 ?>
 
-<!DOCTYPE html>
+<!DOCTYPE >
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -97,9 +97,9 @@ $str = $str."broj=' + document.getElementById('brojOgls').value; window.open(x, 
                 echo'<a href="login.php">Пријави се</a>';
             }
             ?>    
-                <a href="job.html">Посао</a>
-                <a href="contact.html">Контакт</a>
-                <a href="about.html">О нама</a>
+                <a href="job.php">Посао</a>
+                <a href="contact.php">Контакт</a>
+                <a href="about.php">О нама</a>
                 <a href="index.php">Почетна страна</a>
             </div>
         </div>
